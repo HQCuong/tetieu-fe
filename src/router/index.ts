@@ -2,21 +2,12 @@ import {
   createWebHistory,
   createRouter,
 } from 'vue-router';
-import {
-  BasicLayout,
-  HelloWorld,
-} from '@/components';
+import { BasicLayout } from '@/components';
 
 const routes = [
   {
     path: '/',
     component: BasicLayout,
-    children: [
-      {
-        path: '',
-        component: HelloWorld,
-      },
-    ],
   },
 ];
 
