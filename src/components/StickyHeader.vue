@@ -31,16 +31,21 @@ header.fixed-top(:class="headerClasses")
 .collapsible-menu#collapsibleMenu(:class="{ 'open': isMenuOpen }")
   .container-fluid.h-100
     .row.h-100.align-items-center
-      .col-12.text-center
-        ul.collapsible-nav
-          li.collapsible-nav-item(
-            v-for="(item, index) in NAVIGATION_ITEMS",
-            :key="index"
+      .col-12
+        .row.menu-columns
+          .col-lg-3.col-md-6.col-12.mb-4.mb-lg-0(
+            v-for="(column, colIndex) in navigationColumns",
+            :key="`col-${colIndex}`",
           )
-            a.collapsible-nav-link(
-              :href="item.href",
-              @click="closeMenu",
-            ) {{ item.label }}
+            ul.collapsible-nav
+              li.collapsible-nav-item(
+                v-for="(item, index) in column",
+                :key="`${colIndex}-${index}`",
+              )
+                a.collapsible-nav-link(
+                  :href="item.href",
+                  @click="closeMenu",
+                ) {{ item.label }}
 </template>
 
 <script setup lang="ts">
@@ -71,6 +76,19 @@ const brandStyle = computed(() => ({
   '--svg-brand-text-color': isScrolled.value ? 'black' : 'white',
   height: `${isScrolled.value ? 60 : 150}px`,
 }));
+
+// Split navigation items into 4 columns
+const navigationColumns = computed(() => {
+  const items = [...NAVIGATION_ITEMS];
+  const columnSize = Math.ceil(items.length / 4);
+
+  return [
+    items.slice(0, columnSize),
+    items.slice(columnSize, columnSize * 2),
+    items.slice(columnSize * 2, columnSize * 3),
+    items.slice(columnSize * 3),
+  ];
+});
 
 // Methods
 const setBodyOverflow = (hidden = false) => {
@@ -114,5 +132,6 @@ watch(
     if (width > 1280 && isMenuOpen.value) {
       closeMenu();
     }
-  });
+  },
+);
 </script>
