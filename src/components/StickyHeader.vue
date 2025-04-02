@@ -5,17 +5,42 @@ header.fixed-top(:class="headerClasses")
       .col-4
 
       .col-4.text-center.p-0
-        a(href="#")
+        a(
+          href="#",
+          aria-label="Home",
+        )
           BrandIcon.brand-icon(:style="brandStyle")
 
       .col-4.text-end
-        nav
+        nav(aria-label="Main Navigation")
           ul.nav
             li.nav-item(
               v-for="(item, index) in NAVIGATION_ITEMS",
               :key="index",
             )
               a.nav-link.text-white(:href="item.href") {{ item.label }}
+            li.nav-item.ms-3
+              .hamburger-menu(
+                role="button",
+                aria-controls="collapsibleMenu",
+                :aria-expanded="isMenuOpen",
+                @click="toggleMenu",
+              )
+                BurgerMenu.burger-svg-icon(:class="{ 'open': isMenuOpen }")
+
+.collapsible-menu#collapsibleMenu(:class="{ 'open': isMenuOpen }")
+  .container-fluid.h-100
+    .row.h-100.align-items-center
+      .col-12.text-center
+        ul.collapsible-nav
+          li.collapsible-nav-item(
+            v-for="(item, index) in NAVIGATION_ITEMS",
+            :key="index"
+          )
+            a.collapsible-nav-link(
+              :href="item.href",
+              @click="closeMenu",
+            ) {{ item.label }}
 </template>
 
 <script setup lang="ts">
@@ -24,13 +49,21 @@ import {
   computed,
   onMounted,
   onUnmounted,
+  watch,
 } from 'vue';
 import { NAVIGATION_ITEMS } from '@/configs';
 import BrandIcon from '@/assets/brand.svg';
+import BurgerMenu from '@/assets/burger-menu.svg';
 
+// State
 const isScrolled = ref(false);
+const isMenuOpen = ref(false);
 
-const headerClasses = computed(() => ({ 'header-scrolled': isScrolled.value }));
+// Computed
+const headerClasses = computed(() => ({
+  'header-scrolled': isScrolled.value,
+  'menu-open': isMenuOpen.value,
+}));
 
 const rowClasses = computed(() => ({ 'align-items-center': isScrolled.value }));
 
@@ -39,43 +72,47 @@ const brandStyle = computed(() => ({
   height: `${isScrolled.value ? 60 : 150}px`,
 }));
 
-const handleScroll = () => {
-  isScrolled.value = window.scrollY > 50;
+// Methods
+const setBodyOverflow = (hidden = false) => {
+  document.body.style.overflow = hidden ? 'hidden' : '';
 };
 
-onMounted(() => window.addEventListener('scroll', handleScroll));
+const toggleMenu = () => {
+  isMenuOpen.value = !isMenuOpen.value;
+  setBodyOverflow(isMenuOpen.value);
+};
 
-onUnmounted(() => window.removeEventListener('scroll', handleScroll));
+const closeMenu = () => {
+  if (!isMenuOpen.value) {return;}
+
+  isMenuOpen.value = false;
+  setBodyOverflow(false);
+};
+
+const handleScroll = () => {
+  const shouldBeScrolled = window.scrollY > 50;
+
+  if (isScrolled.value !== shouldBeScrolled) {
+    isScrolled.value = shouldBeScrolled;
+  }
+};
+
+// Lifecycle
+onMounted(() => {
+  window.addEventListener('scroll', handleScroll);
+  handleScroll();
+});
+
+onUnmounted(() => {
+  window.removeEventListener('scroll', handleScroll);
+  setBodyOverflow(false);
+});
+
+watch(
+  () => window.innerWidth,
+  width => {
+    if (width > 1280 && isMenuOpen.value) {
+      closeMenu();
+    }
+  });
 </script>
-
-<style scoped>
-header {
-  background-color: transparent;
-  padding: 15px 0;
-  margin-top: 0.5rem;
-}
-
-header {
-  transition: all 0.6s ease;
-}
-
-.header-scrolled {
-  background-color: white;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  padding: 8px 0;
-  margin-top: 0;
-}
-
-.brand-icon {
-  transition: all 0.3s ease;
-}
-
-.header-scrolled .nav-link {
-  transition: color 0.2s ease-in-out;
-  color: black !important;
-}
-
-.nav-link:hover {
-  color: #f31212d1;
-}
-</style>

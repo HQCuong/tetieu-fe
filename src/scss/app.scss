@@ -1,1 +1,4 @@
-@import 'common/index.scss';
+@import 'common/variables';
+@import 'common/base';
+
+@import 'components/sticky-header';
