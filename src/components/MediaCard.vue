@@ -1,47 +1,24 @@
 <template lang="pug">
-.b-card.container.py-4
-  .row.align-items-center(:class="cardClass")
-    .col-md-6
-      img.img-fluid.rounded(
-        :src="image",
-        alt="Media Image",
-      )
-    .col-md-6.text-center.text-md-start
-      h4 {{ title }}
-      p {{ description }}
-      a.btn.btn-primary(:href="actionLink") {{ actionText }}
+section.w-100.pt-3.pb-5(
+  :dir="dir",
+  :style="{ backgroundColor }",
+)
+  .container
+    .row.align-items-center
+      .col-md-6(:class="dir === 'rtl' ? 'ps-md-4' : 'pe-md-4'")
+        img.img-fluid.rounded.w-100(
+          :src="imageSrc",
+          alt="Card Image",
+          style="max-height: 600px; object-fit: contain;",
+        )
+      .col-md-6.mt-4.mt-md-0.text-md-start.text-center
+        slot
 </template>
 
 <script setup lang="ts">
-import {
-  defineProps,
-  computed,
-} from 'vue';
-
-interface Props {
-  image: string;
-  title: string;
-  description: string;
-  actionText?: string;
-  actionLink?: string;
-  rtl?: boolean;
-}
-
-const props = defineProps<Props>();
-
-const cardClass = computed(() => ({ 'flex-row-reverse': props.rtl }));
+defineProps<{
+  dir?: 'ltr' | 'rtl'
+  imageSrc: string
+  backgroundColor?: string
+}>();
 </script>
-
-<style scoped>
-.b-card {
-  background: #eaf2f8;
-  padding: 20px;
-  border-radius: 10px;
-}
-
-img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 10px;
-}
-</style>
