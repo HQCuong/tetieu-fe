@@ -34,12 +34,13 @@ header.fixed-top(:class="headerClasses")
       .col-12
         .row.menu-columns
           .col-lg-3.col-md-6.col-12.mb-4.mb-lg-0(
-            v-for="(column, colIndex) in navigationColumns",
+            v-for="(column, colIndex) in BURGER_MENU_ITEMS",
             :key="`col-${colIndex}`",
           )
+            h3.menu-column-title {{ column.title }}
             ul.collapsible-nav
               li.collapsible-nav-item(
-                v-for="(item, index) in column",
+                v-for="(item, index) in column.items",
                 :key="`${colIndex}-${index}`",
               )
                 a.collapsible-nav-link(
@@ -56,7 +57,10 @@ import {
   onUnmounted,
   watch,
 } from 'vue';
-import { NAVIGATION_ITEMS } from '@/configs';
+import {
+  NAVIGATION_ITEMS,
+  BURGER_MENU_ITEMS,
+} from '@/configs';
 import BrandIcon from '@/assets/brand.svg';
 import BurgerMenu from '@/assets/burger-menu.svg';
 
@@ -76,19 +80,6 @@ const brandStyle = computed(() => ({
   '--svg-brand-text-color': isScrolled.value ? 'black' : 'white',
   height: `${isScrolled.value ? 60 : 150}px`,
 }));
-
-// Split navigation items into 4 columns
-const navigationColumns = computed(() => {
-  const items = [...NAVIGATION_ITEMS];
-  const columnSize = Math.ceil(items.length / 4);
-
-  return [
-    items.slice(0, columnSize),
-    items.slice(columnSize, columnSize * 2),
-    items.slice(columnSize * 2, columnSize * 3),
-    items.slice(columnSize * 3),
-  ];
-});
 
 // Methods
 const setBodyOverflow = (hidden = false) => {
