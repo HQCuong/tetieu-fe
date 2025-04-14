@@ -1,6 +1,6 @@
 <template lang="pug">
 BasicLayout
-  Hero(:img="HERO_BG_IMAGE")
+  Hero(:img="HeroImg")
   .mt-4
     MediaCard(
       dir="ltr",
@@ -11,16 +11,16 @@ BasicLayout
   .mt-4
     MediaCard(
       dir="rtl",
-      image-src="https://marionetten.at/assets/transforms/imager/images/12050387/GvS-Die-Prinzessin_W1600_H1600_f4f1a05c9611d579a52ea0262873fff8.webp",
+      image-src="@/assets/images/home-page-banner.jpg",
       background-color="#2b5a6e",
     )
 </template>
 
 <script setup lang="ts">
-import { HERO_BG_IMAGE } from '@/configs';
 import {
   BasicLayout,
   Hero,
   MediaCard,
 } from '@/components';
+import HeroImg from '@/assets/imgs/home-page-banner.jpg';
 </script>
