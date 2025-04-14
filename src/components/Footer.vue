@@ -5,7 +5,10 @@ footer.bg-light.py-4.py-md-5.mt-auto.border-top
       .col-lg-4.col-md-5
         .d-flex
           .brand-icon
-            BrandIcon(:style="{ '--svg-brand-text-color': 'black' }")
+            img.brand-logo(
+              alt="Brand Logo",
+              :src="BrandIcon",
+            )
           div
             h5.fw-bold.mb-2 Salzburger Marionettentheater
             p.mb-1 Schwarzstraße 24
@@ -44,8 +47,9 @@ footer.bg-light.py-4.py-md-5.mt-auto.border-top
 </template>
 
 <script setup>
-import BrandIcon from '@/assets/brand.svg';
+import BrandIcon from '@/assets/imgs/brand.png';
 </script>
+
 
 <style scoped>
 footer {

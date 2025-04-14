@@ -9,7 +9,11 @@ header.fixed-top(:class="headerClasses")
           href="#",
           aria-label="Home",
         )
-          BrandIcon.brand-icon(:style="brandStyle")
+          img.brand-logo(
+            alt="Brand Logo",
+            :src="Brand",
+            :style="brandStyle",
+          )
 
       .col-4.text-end
         nav(aria-label="Main Navigation")
@@ -61,7 +65,7 @@ import {
   NAVIGATION_ITEMS,
   BURGER_MENU_ITEMS,
 } from '@/configs';
-import BrandIcon from '@/assets/brand.svg';
+import Brand from '@/assets/imgs/brand.png';
 import BurgerMenu from '@/assets/burger-menu.svg';
 
 // State
