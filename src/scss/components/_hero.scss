@@ -3,25 +3,29 @@
   width: 100%;
   height: 100vh;
   overflow: hidden; /* Ngăn chặn scroll ngang */
-  max-width: 100%;
 }
 
 .hero-bg {
   width: 100%;
   height: 100%;
   object-fit: cover; /* Giúp ảnh luôn vừa với container */
-  max-width: 100%;
+  display: block; /* Ensure img behaves like a block element */
 }
 
-.hero a {
+/* Target both 'a' and 'div' rendered by <component> */
+.hero a,
+.hero div { /* Apply styles to the wrapper element regardless of its tag */
   display: block;
   width: 100%;
   height: 100%;
+}
+
+.hero a { /* Apply cursor only to the link */
   cursor: pointer;
 }
 
 /* Styles cho màn hình nhỏ */
-@media (max-width: 767px) {
+@media (max-width: 767px) { /* Consider using a variable like $sticky-header-breakpoint-md */
   .hero {
     height: 50vh; /* Giảm chiều cao trên mobile */
   }

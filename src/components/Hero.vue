@@ -1,16 +1,13 @@
 <template lang="pug">
 section.hero
-  template(v-if="link")
-    a(:href="link")
-      img.hero-bg(
-        :src="img",
-        alt="hero background",
-        :title="link ? 'Click để xem thêm' : ''"
-      )
-  template(v-else)
+  component(
+    :is="link ? 'a' : 'div'",
+    :href="link ? link : undefined",
+    :aria-label="link ? 'Xem thêm' : undefined",
+  )
     img.hero-bg(
       :src="img",
-      alt="hero background"
+      alt="hero background",
     )
 </template>
 
