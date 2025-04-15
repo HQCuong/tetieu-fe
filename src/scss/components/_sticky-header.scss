@@ -1,81 +1,105 @@
+// Variables
+$primary-color: #f31212d1;
+$white-color: white;
+$black-color: black;
+$header-shadow-color: rgba(0, 0, 0, 0.1);
+$menu-bg-color: rgba(0, 0, 0, 0.95);
+$transition-duration: 0.3s;
+$fast-transition-duration: 0.2s;
+$menu-transition-duration: 0.4s;
+$breakpoint-lg: 1280px;
+$breakpoint-md: 767px;
+$brand-height-initial: 150px;
+$brand-height-initial-mobile: 80px; // New variable for initial logo height on smaller screens
+$brand-height-scrolled: 60px;
+$brand-height-menu-open: 60px;
+$brand-height-menu-open-mobile: 60px;
+
 /* Header Styles */
 header {
   background-color: transparent;
   padding: 15px 0;
   margin-top: 0.5rem;
-  transition: all 0.3s ease;
+  transition: all $transition-duration ease;
   z-index: 1030;
-}
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
 
-/* Styles cho header khi menu mở */
-header.menu-open .brand-icon {
-  height: 60px !important; /* Thu nhỏ logo khi menu mở */
-  transition: height 0.3s ease;
-}
+  .row {
+    // Default alignment (top)
+  }
 
-/* Collapsible menu padding top để tránh đè lên logo */
-.collapsible-menu.open .menu-columns {
-  padding-top: 120px; /* Thêm padding-top để logo không đè lên menu */
-}
+  .brand-logo {
+    height: $brand-height-initial;
+    transition: height $transition-duration ease;
+  }
 
-.header-scrolled {
-  background-color: white;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  padding: 8px 0;
-  margin-top: 0;
-}
+  .nav-link {
+    color: $white-color;
+    transition: color $fast-transition-duration ease-in-out;
 
-/* Navigation Styles */
-.nav-link {
-  color: white;
-  transition: color 0.2s ease-in-out;
-}
+    &:hover {
+      color: $primary-color;
+    }
+  }
 
-.nav-link:hover {
-  color: #f31212d1;
-}
+  .burger-svg-icon {
+    width: 24px;
+    height: 24px;
+    transition: all $transition-duration ease;
+    color: $white-color;
+    cursor: pointer;
 
-.header-scrolled .nav-link {
-  color: black !important;
-}
+    &.open {
+      transform: rotate(90deg);
+    }
+  }
 
-/* Brand Icon Styles */
-.brand-icon {
-  transition: all 0.3s ease;
-}
+  .hamburger-menu {
+    cursor: pointer;
+    display: inline-block;
+    padding: 5px;
+  }
 
-/* Burger Menu SVG Icon */
-.burger-svg-icon {
-  width: 24px;
-  height: 24px;
-  transition: all 0.3s ease;
-  color: white;
-  cursor: pointer;
-}
+  &.header-scrolled {
+    background-color: $white-color;
+    box-shadow: 0 2px 10px $header-shadow-color;
+    padding: 8px 0;
+    margin-top: 0;
 
-.header-scrolled .burger-svg-icon {
-  color: black;
-}
+    .row {
+      align-items: center;
+    }
 
-/* Burger icon khi menu mở */
-.menu-open .burger-svg-icon {
-  color: white !important;
-  filter: drop-shadow(0px 0px 2px rgba(0, 0, 0, 0.5)); /* Thêm đổ bóng để tăng độ tương phản */
-}
+    .brand-logo {
+      height: $brand-height-scrolled;
+    }
 
-/* Khi header đã scrolled và menu mở, thêm màu đặc biệt để burger icon dễ nhìn */
-.header-scrolled.menu-open .burger-svg-icon {
-  color: #f31212d1 !important; /* Sử dụng màu chủ đạo của bạn */
-}
+    .nav-link {
+      color: $black-color;
+    }
 
-.burger-svg-icon.open {
-  transform: rotate(90deg);
-}
+    .burger-svg-icon {
+      color: $black-color;
+    }
 
-.hamburger-menu {
-  cursor: pointer;
-  display: inline-block;
-  padding: 5px;
+    &.menu-open .burger-svg-icon {
+      color: $primary-color;
+    }
+  }
+
+  &.menu-open {
+    .brand-logo {
+      height: $brand-height-menu-open;
+    }
+
+    .burger-svg-icon {
+      color: $white-color;
+      filter: drop-shadow(0px 0px 2px rgba(0, 0, 0, 0.5));
+    }
+  }
 }
 
 /* Collapsible Menu */
@@ -85,101 +109,87 @@ header.menu-open .brand-icon {
   left: 0;
   width: 100%;
   height: 0;
-  background-color: rgba(0, 0, 0, 0.95);
+  background-color: $menu-bg-color;
   overflow: hidden;
-  transition: height 0.4s ease;
-  z-index: 1025; /* Ở giữa header và content */
-}
+  transition: height $menu-transition-duration ease;
+  z-index: 1025;
 
-.collapsible-menu.open {
-  height: 100vh;
-}
+  &.open {
+    height: 100vh;
 
-/* Column title styles */
-.menu-column-title {
-  color: #f31212d1;
-  font-size: 1.2rem;
-  margin-bottom: 1.5rem;
-  font-weight: 600;
-  opacity: 0;
-  transform: translateY(10px);
-  transition: opacity 0.3s ease, transform 0.3s ease;
-  text-align: center; /* Căn giữa tiêu đề cột */
-}
+    .menu-column-title,
+    .collapsible-nav-item {
+      opacity: 1;
+      transform: translateY(0);
+    }
 
-.collapsible-menu.open .menu-column-title {
-  opacity: 1;
-  transform: translateY(0);
-  transition-delay: 0.1s;
-}
+    @for $i from 1 through 5 {
+      .collapsible-nav-item:nth-child(#{$i}) {
+        transition-delay: $transition-duration * $i / 3;
+      }
+    }
 
-/* 4-Column Menu Layout */
-.menu-columns {
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px 15px;
-  display: flex;
-  justify-content: center;
-}
+    .col-lg-3 {
+      animation: fadeIn 0.5s ease forwards;
 
-.collapsible-nav {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  text-align: center; /* Căn giữa text */
-}
+      @for $i from 1 through 4 {
+        &:nth-child(#{$i}) {
+          animation-delay: $transition-duration * $i / 3;
+        }
+      }
+    }
+  }
 
-.collapsible-nav-item {
-  margin: 20px 0;
-  opacity: 0;
-  transform: translateY(10px);
-  transition: opacity 0.3s ease, transform 0.3s ease;
-  text-align: center; /* Đảm bảo text được căn giữa */
-}
+  .menu-columns {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 10px 15px 20px; // Adjust base padding-top if needed for larger screens, though it's overridden in .open state
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    align-items: flex-start;
+  }
 
-.collapsible-menu.open .collapsible-nav-item {
-  opacity: 1;
-  transform: translateY(0);
-}
+  .menu-column-title {
+    color: $primary-color;
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity $transition-duration ease, transform $transition-duration ease;
+    transition-delay: 0.1s;
+    text-align: center;
+  }
 
-.collapsible-nav-link {
-  color: white;
-  font-size: 1.5rem;
-  text-decoration: none;
-  transition: color 0.2s ease;
-  display: inline-block; /* Giúp căn giữa tốt hơn */
-}
+  .collapsible-nav {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+  }
 
-.collapsible-nav-link:hover {
-  color: #f31212d1;
-  text-decoration: none;
-}
+  .collapsible-nav-item {
+    margin: 20px 0;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity $transition-duration ease, transform $transition-duration ease;
+    text-align: center;
+  }
 
-/* Animation delays for menu items */
-.collapsible-menu.open .collapsible-nav-item:nth-child(1) {
-  transition-delay: 0.1s;
-}
+  .collapsible-nav-link {
+    color: $white-color;
+    font-size: 1.5rem;
+    text-decoration: none;
+    transition: color $fast-transition-duration ease;
+    display: inline-block;
 
-.collapsible-menu.open .collapsible-nav-item:nth-child(2) {
-  transition-delay: 0.2s;
-}
-
-.collapsible-menu.open .collapsible-nav-item:nth-child(3) {
-  transition-delay: 0.3s;
-}
-
-.collapsible-menu.open .collapsible-nav-item:nth-child(4) {
-  transition-delay: 0.4s;
-}
-
-.collapsible-menu.open .collapsible-nav-item:nth-child(5) {
-  transition-delay: 0.5s;
-}
-
-/* Column animation */
-.collapsible-menu.open .col-lg-3 {
-  animation: fadeIn 0.5s ease forwards;
+    &:hover {
+      color: $primary-color;
+      text-decoration: none;
+    }
+  }
 }
 
 @keyframes fadeIn {
@@ -193,113 +203,98 @@ header.menu-open .brand-icon {
   }
 }
 
-/* Column-specific delay */
-.collapsible-menu.open .col-lg-3:nth-child(1) {
-  animation-delay: 0.1s;
-}
-
-.collapsible-menu.open .col-lg-3:nth-child(2) {
-  animation-delay: 0.2s;
-}
-
-.collapsible-menu.open .col-lg-3:nth-child(3) {
-  animation-delay: 0.3s;
-}
-
-.collapsible-menu.open .col-lg-3:nth-child(4) {
-  animation-delay: 0.4s;
-}
-
 /* Responsive styles */
-@media (max-width: 1280px) {
-  /* Hide nav-items except burger menu */
-  .nav-item:not(:last-child) {
-    display: none;
+@media (max-width: $breakpoint-lg) {
+  header {
+    .nav-item:not(:last-child) {
+      display: none;
+    }
+
+    .row {
+      position: relative;
+
+      > .col-4:first-child {
+        display: none;
+      }
+
+      .col-4.text-center.p-0 {
+        width: 100%;
+        text-align: center !important;
+      }
+
+      .col-4.text-end {
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: auto;
+        z-index: 1050;
+        padding: 0;
+
+        nav,
+        nav ul.nav {
+          display: flex;
+        }
+      }
+    }
+
+    // Apply smaller initial logo height on smaller screens when not scrolled
+    &:not(.header-scrolled) .brand-logo {
+      height: $brand-height-initial-mobile;
+    }
+
+    // Ensure scrolled styles apply correctly on smaller screens too
+    &.header-scrolled .brand-logo {
+      height: $brand-height-scrolled;
+    }
   }
 
-  /* Layout */
-  .row {
-    position: relative;
-  }
+  .collapsible-menu {
+    &.open .menu-columns {
+      // Reduce the extra spacing added to the logo height
+      padding-top: calc(#{$brand-height-initial-mobile} + 10px); // Reduced from 20px to 10px
+    }
 
-  .row > .col-4:first-child {
-    display: none;
-  }
+    .collapsible-nav-link {
+      font-size: 1.2rem;
+    }
 
-  /* Center the brand */
-  .col-4.text-center.p-0 {
-    width: 100%;
-    text-align: center !important;
-  }
-
-  /* Burger menu at the right corner */
-  .col-4.text-end {
-    position: absolute;
-    right: 15px;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    width: auto;
-    z-index: 1050; /* Cao hơn để có thể đóng menu */
-  }
-
-  /* Navigation elements */
-  .col-4.text-end nav,
-  .col-4.text-end nav ul.nav {
-    display: flex;
-    align-items: center;
-  }
-
-  /* Adjust burger menu position when scrolled */
-  .header-scrolled .col-4.text-end {
-    top: 50%;
-    transform: translateY(-50%);
-  }
-
-  /* Responsive text size */
-  .collapsible-nav-link {
-    font-size: 1.2rem;
-  }
-
-  .collapsible-nav-item {
-    margin: 15px 0;
-  }
-
-  /* Điều chỉnh padding-top trên tablet */
-  .collapsible-menu.open .menu-columns {
-    padding-top: 100px;
+    .collapsible-nav-item {
+      margin: 15px 0;
+    }
   }
 }
 
-@media (max-width: 767px) {
-  .menu-columns {
-    text-align: center;
-    padding: 0 30px;
-    flex-direction: column;
-    align-items: center;
+@media (max-width: $breakpoint-md) {
+  header {
+    &.menu-open .brand-logo {
+      height: $brand-height-menu-open-mobile;
+    }
+
+    &.header-scrolled .brand-logo {
+      height: $brand-height-scrolled; // Explicitly set scrolled height for mobile if needed
+    }
   }
 
-  /* Thu nhỏ logo hơn nữa trên mobile */
-  header.menu-open .brand-icon {
-    height: 60px !important;
-  }
+  .collapsible-menu {
+    .menu-columns {
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: calc(#{$brand-height-menu-open-mobile} + 10px) 30px 20px; // Reduced from 20px to 10px
+      text-align: center;
+      overflow-y: auto;
+    }
 
-  /* Tăng padding-top cho menu columns trên mobile */
-  .collapsible-menu.open .menu-columns {
-    padding-top: 80px;
-  }
+    .menu-column-title {
+      font-size: 1rem;
+      margin-bottom: 1rem;
+      margin-top: 1.5rem;
+    }
 
-  .menu-column-title {
-    font-size: 1rem;
-    margin-bottom: 1rem;
-    margin-top: 1.5rem;
-  }
-
-  .collapsible-nav {
-    padding-left: 0;
-  }
-
-  .col-md-6 {
-    margin-bottom: 10px;
+    .col-lg-3.col-md-6.col-12 {
+      width: 100%;
+      margin-bottom: 10px;
+    }
   }
 }

@@ -12,7 +12,7 @@ header.fixed-top(:class="headerClasses")
           img.brand-logo(
             alt="Brand Logo",
             :src="Brand",
-            :style="brandStyle",
+            :class="{ 'scrolled': isScrolled, 'menu-open': isMenuOpen }",
           )
 
       .col-4.text-end
@@ -22,17 +22,23 @@ header.fixed-top(:class="headerClasses")
               v-for="(item, index) in NAVIGATION_ITEMS",
               :key="index",
             )
-              a.nav-link.text-white(:href="item.href") {{ item.label }}
+              a.nav-link(:href="item.href") {{ item.label }}
             li.nav-item.ms-3
               .hamburger-menu(
                 role="button",
+                tabindex="0",
                 aria-controls="collapsibleMenu",
                 :aria-expanded="isMenuOpen",
                 @click="toggleMenu",
+                @keydown.enter="toggleMenu",
+                @keydown.space.prevent="toggleMenu",
               )
                 BurgerMenu.burger-svg-icon(:class="{ 'open': isMenuOpen }")
 
-.collapsible-menu#collapsibleMenu(:class="{ 'open': isMenuOpen }")
+.collapsible-menu#collapsibleMenu(
+  :class="{ 'open': isMenuOpen }",
+  :aria-hidden="!isMenuOpen",
+)
   .container-fluid.h-100
     .row.h-100.align-items-center
       .col-12
@@ -59,14 +65,13 @@ import {
   computed,
   onMounted,
   onUnmounted,
-  watch,
 } from 'vue';
 import {
   NAVIGATION_ITEMS,
   BURGER_MENU_ITEMS,
 } from '@/configs';
 import Brand from '@/assets/imgs/brand.png';
-import BurgerMenu from '@/assets/burger-menu.svg';
+import BurgerMenu from '@/assets/burger-menu.svg?component';
 
 // State
 const isScrolled = ref(false);
@@ -78,12 +83,8 @@ const headerClasses = computed(() => ({
   'menu-open': isMenuOpen.value,
 }));
 
-const rowClasses = computed(() => ({ 'align-items-center': isScrolled.value }));
-
-const brandStyle = computed(() => ({
-  '--svg-brand-text-color': isScrolled.value ? 'black' : 'white',
-  height: `${isScrolled.value ? 60 : 150}px`,
-}));
+// Remove 'align-items-center' from here
+const rowClasses = computed(() => '');
 
 // Methods
 const setBodyOverflow = (hidden = false) => {
@@ -96,7 +97,7 @@ const toggleMenu = () => {
 };
 
 const closeMenu = () => {
-  if (!isMenuOpen.value) {return;}
+  if (!isMenuOpen.value) { return; }
 
   isMenuOpen.value = false;
   setBodyOverflow(false);
@@ -110,23 +111,22 @@ const handleScroll = () => {
   }
 };
 
+const handleResize = () => {
+  if (window.innerWidth > 1280 && isMenuOpen.value) {
+    closeMenu();
+  }
+};
+
 // Lifecycle
 onMounted(() => {
-  window.addEventListener('scroll', handleScroll);
+  window.addEventListener('scroll', handleScroll, { passive: true });
+  window.addEventListener('resize', handleResize);
   handleScroll();
 });
 
 onUnmounted(() => {
   window.removeEventListener('scroll', handleScroll);
+  window.removeEventListener('resize', handleResize);
   setBodyOverflow(false);
 });
-
-watch(
-  () => window.innerWidth,
-  width => {
-    if (width > 1280 && isMenuOpen.value) {
-      closeMenu();
-    }
-  },
-);
 </script>
