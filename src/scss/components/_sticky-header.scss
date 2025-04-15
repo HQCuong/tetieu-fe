@@ -211,7 +211,7 @@ header {
     }
 
     .row {
-      position: relative;
+      position: relative; // Keep relative positioning for absolute child
 
       > .col-4:first-child {
         display: none;
@@ -223,13 +223,13 @@ header {
       }
 
       .col-4.text-end {
+        // Always position absolutely on small screens
         position: absolute;
         right: 15px;
-        top: 50%;
-        transform: translateY(-50%);
         width: auto;
         z-index: 1050;
         padding: 0;
+        transition: top $sticky-header-transition-duration ease, transform $sticky-header-transition-duration ease; // Add transition for smooth vertical movement
 
         nav,
         nav ul.nav {
@@ -238,14 +238,31 @@ header {
       }
     }
 
-    // Apply smaller initial logo height on smaller screens when not scrolled
-    &:not(.header-scrolled) .brand-logo {
-      height: $sticky-header-brand-height-initial-mobile;
+    // Default state (NOT scrolled) on smaller screens
+    &:not(.header-scrolled) {
+      .brand-logo {
+        height: $sticky-header-brand-height-initial-mobile;
+      }
+      .col-4.text-end {
+         // Align towards top when not scrolled
+         top: 15px; // Match initial header padding-top
+         transform: translateY(0);
+      }
     }
 
-    // Ensure scrolled styles apply correctly on smaller screens too
-    &.header-scrolled .brand-logo {
-      height: $sticky-header-brand-height-scrolled;
+    // Scrolled state on smaller screens
+    &.header-scrolled {
+      .row {
+        // align-items: center; // Already applied in base .header-scrolled rule
+      }
+      .col-4.text-end {
+         // Center vertically when scrolled
+         top: 50%;
+         transform: translateY(-50%);
+      }
+      .brand-logo {
+        height: $sticky-header-brand-height-scrolled;
+      }
     }
   }
 
