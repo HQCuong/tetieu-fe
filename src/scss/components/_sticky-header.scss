@@ -244,8 +244,8 @@ header {
         height: $sticky-header-brand-height-initial-mobile;
       }
       .col-4.text-end {
-         // Align towards top when not scrolled
-         top: 15px; // Match initial header padding-top
+         // Align closer to the top edge when not scrolled
+         top: 5px; // Reduced from 15px. Adjust this value (e.g., 0) as needed.
          transform: translateY(0);
       }
     }
