@@ -16,7 +16,7 @@ interface Props {
 withDefaults(
   defineProps<Props>(),
   {
-    fontSize: '2.5rem',
+    fontSize: '60px',
     fontWeight: 'normal',
   },
 );
