@@ -25,7 +25,7 @@ BasicLayout
     )
 
   .mt-5
-    Hero(img="https://marionetten.at/assets/transforms/imager/images/2836/Saal-Wiener-quer2_1_W2400_P49-29-98-94_07cb76639935b5817b13052ad8924314.webp")
+    Hero(:img="FooterImg")
 </template>
 
 <script setup lang="ts">
@@ -37,6 +37,7 @@ import {
   Heading,
 } from '@/components';
 import HeroImg from '@/assets/imgs/home-page-banner.jpg';
+import FooterImg from '@/assets/imgs/footer.jpg';
 
 const performances = [
   {

@@ -5,8 +5,8 @@ header.fixed-top(:class="headerClasses")
       .col-4
 
       .col-4.text-center.p-0
-        a(
-          href="#",
+        router-link(
+          :to="{ path: '/' }",
           aria-label="Home",
         )
           img.brand-logo(
@@ -22,7 +22,7 @@ header.fixed-top(:class="headerClasses")
               v-for="(item, index) in NAVIGATION_ITEMS",
               :key="index",
             )
-              a.nav-link(:href="item.href") {{ item.label }}
+              router-link.nav-link(:to="item.to") {{ item.label }}
             li.nav-item.ms-3
               .hamburger-menu(
                 role="button",
@@ -53,8 +53,8 @@ header.fixed-top(:class="headerClasses")
                 v-for="(item, index) in column.items",
                 :key="`${colIndex}-${index}`",
               )
-                a.collapsible-nav-link(
-                  :href="item.href",
+                router-link.collapsible-nav-link(
+                  :to="item.to",
                   @click="closeMenu",
                 ) {{ item.label }}
 </template>

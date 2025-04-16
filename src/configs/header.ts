@@ -1,76 +1,59 @@
 export const NAVIGATION_ITEMS = [
   {
-    label: 'About',
-    href: '/about',
+    label: 'Tickets',
+    to: '/tickets',
   },
   {
-    label: 'Projects',
-    href: '/projects',
+    label: 'News',
+    to: '/news',
   },
   {
     label: 'Contact',
-    href: '/contact',
-  },
-  {
-    label: 'Blog',
-    href: '/blog',
+    to: '/contact',
   },
 ];
 
 export const BURGER_MENU_ITEMS = [
   {
-    title: 'About 1',
+    title: 'Programme',
     items: [
       {
-        label: 'About Me',
-        href: '/about',
+        label: 'Tickets',
+        to: '/tickets',
       },
       {
-        label: 'My Skills',
-        href: '/skills',
+        label: 'Calendar',
+        to: '/calendar',
       },
     ],
   },
   {
-    title: 'About 2',
+    title: 'Theatre',
     items: [
       {
-        label: 'About Me',
-        href: '/about',
+        label: 'News',
+        to: '/news',
+      },
+      {
+        label: 'Products',
+        to: '/products',
+      },
+      {
+        label: 'History',
+        to: '/history',
       },
     ],
   },
   {
-    title: 'About 3',
+    title: 'Service',
     items: [
       {
-        label: 'About Me',
-        href: '/about',
+        label: 'Contact',
+        to: '/contact',
       },
       {
-        label: 'My Skills',
-        href: '/skills',
-      },
-      {
-        label: 'My Skills',
-        href: '/skills',
-      },
-      {
-        label: 'My Skills',
-        href: '/skills',
-      },
-    ],
-  },
-  {
-    title: 'About 4',
-    items: [
-      {
-        label: 'About Me',
-        href: '/about',
-      },
-      {
-        label: 'My Skills',
-        href: '/skills',
+        label: 'Newsletter',
+        to: '/newsletter',
       },
     ],
   },

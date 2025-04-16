@@ -1,13 +1,35 @@
 import {
   createWebHistory,
   createRouter,
+  RouteRecordRaw, // Import RouteRecordRaw for type safety
 } from 'vue-router';
-import { HomePage } from '@/components';
+import {
+  HomePage,
+  NewDetailPage,
+  NewsPage,
+} from '@/components';
 
-const routes = [
+// Define type for routes array
+const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
+    name: 'home',
     component: HomePage,
+  },
+  {
+    path: '/news',
+    name: 'news',
+    component: NewsPage,
+  },
+  {
+    path: '/news/:id?',
+    name: 'newsDetail',
+    component: NewDetailPage,
+  },
+  // Catch-all route: Must be the last route
+  {
+    path: '/:pathMatch(.*)*', // Matches everything that hasn't been matched before
+    redirect: '/', // Redirects to the home page
   },
 ];
 
