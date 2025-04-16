@@ -1,5 +1,5 @@
 <template lang="pug">
-footer.bg-light.py-4.py-md-5.mt-auto.border-top
+footer.py-4.py-md-5.mt-auto.border-top
   .container
     .row.gy-4.justify-content-between
       .col-lg-4.col-md-5

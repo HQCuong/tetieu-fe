@@ -7,18 +7,23 @@
       :key="`${item.title}-${item.datetime}`",
     )
       .row.align-items-center
+        // Date column (remains col-md-3)
         .col-md-3.mb-3.mb-md-0
           h6.text-uppercase.mb-1 {{ item.day }}
           p.mb-0 {{ item.datetime }}
 
-        .col-md-5
+        // Title/Author column (changed to col-md-4)
+        .col-md-4
           h6.text-danger.fw-bold.mb-1 {{ item.title }}
-          p.mb-1 {{ item.author }}
+          p.mb-0 {{ item.author }} // Removed intermission/duration from here
+
+        // New column for Intermission/Duration (col-md-2)
+        .col-md-2.mb-3.mb-md-0
           p.mb-1 {{ item.intermission }}
           p.mb-0 {{ item.duration }}
 
-        .col-md-4.text-md-end
-          // Add rel="noopener noreferrer" for security with target="_blank"
+        // Button column (changed to col-md-3)
+        .col-md-3.text-md-end
           a.btn.btn-outline-dark(
             :href="item.ticketsUrl"
             target="_blank"
@@ -28,8 +33,6 @@
 
 <script lang="ts" setup>
 interface Performance {
-  // Add an id property if available from the data source
-  // id: string | number;
   day: string
   datetime: string
   title: string
