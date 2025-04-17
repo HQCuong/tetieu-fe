@@ -35,6 +35,7 @@ BasicLayout(v-else)
       )
 
       Pagination(
+        v-if="!(isFirstPage && isLastPage)",
         :is-first-page="isFirstPage",
         :is-last-page="isLastPage",
         @next="handleNext",

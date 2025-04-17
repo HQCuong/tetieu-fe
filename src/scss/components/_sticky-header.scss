@@ -9,11 +9,12 @@ $sticky-header-fast-transition-duration: 0.2s;
 $sticky-header-menu-transition-duration: 0.4s;
 $sticky-header-breakpoint-lg: 1280px;
 $sticky-header-breakpoint-md: 767px;
-$sticky-header-brand-height-initial: 150px;
-$sticky-header-brand-height-initial-mobile: 80px;
-$sticky-header-brand-height-scrolled: 60px;
-$sticky-header-brand-height-menu-open: 60px;
-$sticky-header-brand-height-menu-open-mobile: 60px;
+// Reduce logo height variables
+$sticky-header-brand-height-initial: 120px; // Reduced from 150px
+$sticky-header-brand-height-initial-mobile: 70px; // Reduced from 80px
+$sticky-header-brand-height-scrolled: 50px; // Reduced from 60px
+$sticky-header-brand-height-menu-open: 50px; // Reduced from 60px
+$sticky-header-brand-height-menu-open-mobile: 50px; // Reduced from 60px
 
 /* Header Styles */
 header {
@@ -268,8 +269,8 @@ header {
 
   .collapsible-menu {
     &.open .menu-columns {
-      // Reduce the extra spacing added to the logo height
-      padding-top: calc(#{$sticky-header-brand-height-initial-mobile} + 10px); // Reduced from 20px to 10px
+      // Adjust calculation based on new mobile initial height
+      padding-top: calc(#{$sticky-header-brand-height-initial-mobile} + 10px);
     }
 
     .collapsible-nav-link {
@@ -298,7 +299,7 @@ header {
       flex-direction: column;
       align-items: center;
       justify-content: flex-start;
-      padding: calc(#{$sticky-header-brand-height-menu-open-mobile} + 10px) 30px 20px; // Reduced from 20px to 10px
+      padding: calc(#{$sticky-header-brand-height-menu-open-mobile} + 10px) 30px 20px;
       text-align: center;
       overflow-y: auto;
     }
