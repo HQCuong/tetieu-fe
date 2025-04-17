@@ -19,7 +19,7 @@ BasicLayout
       .content-section
         p A co-production with the Salzburg Festival
 
-      p.mt-5.normal-font
+      p.mt-5.font-normal
         | The story of a deserting soldier, the Devil, a violin and a princess comes from the world of Russian fairy tales. When the Devil is involved, the story rarely ends well — and this tale is no exception. The original scenic concept, inspired in both aesthetic and practical terms by travelling fairs and theatre troupes, brings to mind images of street balladeers. The world premiere of L’Histoire du soldat in 1918 in Lausanne was not only an important moment in the history of 20th-century Swiss theatre, but also cemented the work’s status as a landmark of musical modernism. Of course, Stravinsky had already been recognized as a figure to be reckoned with soon after the turn of the century, when the May 1913 premiere of his ballet Le Sacre du printemps provoked a succès de scandale in Paris. In German with English explanations
 </template>
 

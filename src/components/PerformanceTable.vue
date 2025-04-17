@@ -1,6 +1,6 @@
 <template lang="pug">
 .performance-table-section.container.my-5
-  h2.my-4.fw-bold NEXT PERFORMANCES
+  h2.my-4.font-heading NEXT PERFORMANCES
   .list-group
     .list-group-item.border-0.border-top.p-4(
       v-for="(item) in performances",

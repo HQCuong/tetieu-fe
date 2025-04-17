@@ -22,7 +22,7 @@ header.fixed-top(:class="headerClasses")
               v-for="(item, index) in NAVIGATION_ITEMS",
               :key="index",
             )
-              router-link.nav-link(:to="item.to") {{ item.label }}
+              router-link.nav-link.font-heading(:to="item.to") {{ item.label }}
             li.nav-item.ms-3
               .hamburger-menu(
                 role="button",
@@ -47,13 +47,13 @@ header.fixed-top(:class="headerClasses")
             v-for="(column, colIndex) in BURGER_MENU_ITEMS",
             :key="`col-${colIndex}`",
           )
-            h3.menu-column-title {{ column.title }}
+            h3.menu-column-title.font-heading {{ column.title }}
             ul.collapsible-nav
               li.collapsible-nav-item(
                 v-for="(item, index) in column.items",
                 :key="`${colIndex}-${index}`",
               )
-                router-link.collapsible-nav-link(
+                router-link.collapsible-nav-link.font-heading(
                   :to="item.to",
                   @click="closeMenu",
                 ) {{ item.label }}

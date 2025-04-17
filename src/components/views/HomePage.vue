@@ -8,14 +8,14 @@ BasicLayout
     :style="{ marginTop: '6rem', marginBottom: '3rem' }",
   )
   MediaCard(
-    dir="ltr",
+    dir="rtl",
     image-src="https://marionetten.at/assets/images/Haende1_2022-08-02-091704_lqec.JPG",
     background-color="#ffffff",
   )
     .ps-3
       h4 The high art of puppetry
-      p.normal-font.fw-bold What makes the Salzburg Marionette Theatre different from other theatres?
-      p.normal-font
+      p.font-normal.fw-bold What makes the Salzburg Marionette Theatre different from other theatres?
+      p.font-normal
         | This special performance technique,
         | has been declared a cultural asset worthy of preservation,
         | as the "most highly developed form of puppet and figure theatre",
@@ -29,26 +29,18 @@ BasicLayout
   )
   .mt-5
     MediaCard(
-      dir="rtl",
-      image-src="https://marionetten.at/assets/transforms/imager/images/12050387/GvS-Die-Prinzessin_W1200_H1200_f9d35c2e75cded6d5435415681c0a155.webp",
+      v-if="latestNew",
+      dir="ltr",
+      :image-src="latestNew.Img",
       background-color="#2b5a6e",
     )
-      .text-white.text-end
-        h1.fw-light.mb-5 HISTOIRE DU SOLDAT
-        p.lead Igor Stravinsky
-        p to be read, played and danced (2 parts; 1918)
-        p Text: Ferdinand Ramuz
-        p In the German adaptation by: Hans Reinhart
+      .text-white
+        h4.latest-new-title.mb-4 {{ latestNew.Title }}
+        .latest-new-description(v-html="latestNew.Description")
 
-        .content-section
-          p Puppets and décor: Georg Baselitz
-
-        .content-section
-          p A co-production with the Salzburg Festival
-
-        .mt-5
-          router-link.btn.btn-outline-light.py-2.px-5(to="/news/1")
-            span.text-white Read more
+      button.btn.btn-outline-light.mt-4(
+        @click="() => router.push({ name: 'new-detail', params: { id: latestNew?.Id } })"
+      ) Read more
 
   .mt-5
     Hero(:img="FooterImg")
@@ -56,13 +48,37 @@ BasicLayout
 
 <script setup lang="ts">
 import {
+  onMounted,
+  ref,
+} from 'vue';
+import { useRouter } from 'vue-router';
+import { newServices } from '@/services';
+import { PERFORMANCES } from '@/configs';
+import {
   BasicLayout,
   Hero,
   MediaCard,
   PerformanceTable,
   Heading,
 } from '@/components';
-import { PERFORMANCES } from '@/configs';
 import HomePageBanner from '@/assets/imgs/home-page-banner.jpg';
 import FooterImg from '@/assets/imgs/footer.jpg';
+
+const router = useRouter();
+
+const latestNew = ref<null | Record<string, any>>(null);
+
+const getFirstNews = async () => {
+  const news = await newServices.getNews() as null | Record<string, any>;
+
+  if (news && news.list && news.list.length) {
+    const lastNews = news.list[news.list.length - 1];
+
+    latestNew.value = lastNews;
+  }
+};
+
+onMounted(() => {
+  getFirstNews();
+});
 </script>

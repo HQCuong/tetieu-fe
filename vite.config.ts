@@ -9,5 +9,10 @@ export default defineConfig({
     vue(),
     svgLoader(),
   ],
-  resolve: { alias: { '@': (path.resolve(__dirname, './src/')) } },
+  resolve: {
+    alias: {
+      '@': (path.resolve(__dirname, './src/')),
+      '@axios': (path.resolve(__dirname, './src/bootstrap/api-interceptor.ts')),
+    },
+  },
 });

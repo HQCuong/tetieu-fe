@@ -3,7 +3,7 @@
   .container
     .row
       .col-12.text-center
-        p.text-danger(:style="{ fontSize, fontWeight }") {{ title }}
+        p.font-heading.text-danger(:style="{ fontSize, fontWeight }") {{ title }}
 </template>
 
 <script setup lang="ts">

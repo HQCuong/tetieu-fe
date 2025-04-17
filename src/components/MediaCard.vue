@@ -1,7 +1,5 @@
 <template lang="pug">
-section.media-card.w-100.pt-4.pb-5(
-  :style="{ backgroundColor }",
-)
+section.media-card.w-100.py-5(:style="{ backgroundColor }")
   .container
     .row
       .col-md-6(:class="{ 'order-md-2': dir === 'rtl' }")

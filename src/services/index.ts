@@ -1,1 +1,2 @@
 // Services
+export * from './news';

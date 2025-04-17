@@ -23,7 +23,7 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: '/news/:id',
-    name: 'newsDetail',
+    name: 'new-detail',
     component: NewDetailPage,
   },
   // Catch-all route: Must be the last route

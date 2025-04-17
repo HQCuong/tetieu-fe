@@ -21,7 +21,8 @@
     "noFallthroughCasesInSwitch": true,
 
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@axios": ["./src/bootstrap/api-interceptor.ts"],
     }
   },
   "vueCompilerOptions": {
