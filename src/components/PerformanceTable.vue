@@ -15,7 +15,7 @@
         // Title/Author column (changed to col-md-4)
         .col-md-4
           h6.text-danger.fw-bold.mb-1 {{ item.title }}
-          p.mb-0 {{ item.author }} // Removed intermission/duration from here
+          p.mb-0 {{ item.author }}
 
         // New column for Intermission/Duration (col-md-2)
         .col-md-2.mb-3.mb-md-0

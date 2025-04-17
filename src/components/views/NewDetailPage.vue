@@ -1,14 +1,14 @@
 <template lang="pug">
 BasicLayout
-  Hero(img="https://marionetten.at/assets/transforms/imager/images/12050387/GvS-Die-Prinzessin_W1200_H1200_f9d35c2e75cded6d5435415681c0a155.webp")
+  .pb-5
+    Hero(img="https://marionetten.at/assets/transforms/imager/images/12050387/GvS-Die-Prinzessin_W2400_4e57d52f89dc62001fa3deff5aab68af.webp")
 
-  .p-5
-    Heading(
-      title="Die Geschichte vom Soldaten",
-      :style="{ marginTop: '6rem', marginBottom: '3rem' }",
-    )
+    .mx-auto(:style="{ maxWidth: '700px'}")
+      Heading(
+        title="Die Geschichte vom Soldaten",
+        :style="{ marginTop: '5rem', marginBottom: '2rem' }",
+      )
 
-    div(:style="{ maxWidth: '600px', margin: '0 auto' }")
       p to be read, played and danced (2 parts; 1918)
       p Text: Ferdinand Ramuz
       p In the German adaptation by: Hans Reinhart

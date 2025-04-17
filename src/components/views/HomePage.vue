@@ -3,7 +3,7 @@ BasicLayout
   Hero(:img="HomePageBanner")
   PerformanceTable(:performances="PERFORMANCES")
 
-  Heading(
+  Heading.text-center(
     title="The Salzburg Marionette Theatre",
     :style="{ marginTop: '6rem', marginBottom: '3rem' }",
   )
@@ -23,7 +23,7 @@ BasicLayout
 
       button.btn.btn-outline-dark Unesco Intangible Cultural Heritage
 
-  Heading(
+  Heading.text-center(
     title="News",
     :style="{ marginTop: '6rem', marginBottom: '3rem' }",
   )
@@ -31,16 +31,14 @@ BasicLayout
     MediaCard(
       v-if="latestNew",
       dir="ltr",
-      :image-src="latestNew.Img",
+      :image-src="latestNew.Thumbnail",
       background-color="#2b5a6e",
     )
       .text-white
         h4.latest-new-title.mb-4 {{ latestNew.Title }}
         .latest-new-description(v-html="latestNew.Description")
 
-      button.btn.btn-outline-light.mt-4(
-        @click="() => router.push({ name: 'new-detail', params: { id: latestNew?.Id } })"
-      ) Read more
+      button.btn.btn-outline-light.mt-4(@click="router.push({ name: 'new-detail', params: { id: latestNew?.Id } })") Read more
 
   .mt-5
     Hero(:img="FooterImg")

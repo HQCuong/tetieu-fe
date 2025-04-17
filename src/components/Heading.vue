@@ -2,7 +2,7 @@
 .big-heading
   .container
     .row
-      .col-12.text-center
+      .col-12.p-0
         p.font-heading.text-danger(:style="{ fontSize, fontWeight }") {{ title }}
 </template>
 
