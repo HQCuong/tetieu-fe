@@ -39,9 +39,6 @@ BasicLayout
         .latest-new-description(v-html="latestNew.Description")
 
       button.btn.btn-outline-light.mt-4(@click="router.push({ name: 'new-detail', params: { id: latestNew?.Id } })") Read more
-
-  .mt-5
-    Hero(:img="FooterImg")
 </template>
 
 <script setup lang="ts">
@@ -60,13 +57,12 @@ import {
   Heading,
 } from '@/components';
 import HomePageBanner from '@/assets/imgs/home-page-banner.jpg';
-import FooterImg from '@/assets/imgs/footer.jpg';
 
 const router = useRouter();
 
 const latestNew = ref<null | Record<string, any>>(null);
 
-const getFirstNews = async () => {
+const getFirstNew = async () => {
   const news = await newServices.getNews() as null | Record<string, any>;
 
   if (news && news.list && news.list.length) {
@@ -77,6 +73,6 @@ const getFirstNews = async () => {
 };
 
 onMounted(() => {
-  getFirstNews();
+  getFirstNew();
 });
 </script>

@@ -1,35 +1,83 @@
 <template lang="pug">
-BasicLayout
+FullPageLoading(v-if="isLoading")
+BasicLayout(v-else)
   Hero(:img="NewsPageBanner")
 
   MediaCard(
+    v-if="latestNew",
     dir="ltr",
-    image-src="https://marionetten.at/assets/transforms/imager/images/12050387/GvS-Die-Prinzessin_W1200_H1200_f9d35c2e75cded6d5435415681c0a155.webp",
+    :image-src="latestNew.Thumbnail",
+    background-color="#ffffff",
+  )
+    h4.latest-new-title.mb-4 {{ latestNew.Title }}
+    .latest-new-description(v-html="latestNew.Description")
+
+    button.btn.btn-outline-dark.mt-4(@click="router.push({ name: 'new-detail', params: { id: latestNew?.Id } })") Read more
+
+  MediaCard(
+    v-if="secondNew",
+    dir="rtl",
+    :image-src="secondNew.Thumbnail",
     background-color="#2b5a6e",
   )
-    .text-white
-      h1.fw-light.mb-5 HISTOIRE DU SOLDAT
-      p.lead Igor Stravinsky
-      p to be read, played and danced (2 parts; 1918)
-      p Text: Ferdinand Ramuz
-      p In the German adaptation by: Hans Reinhart
+    .text-white.text-end
+      h4.latest-new-title.mb-4 {{ secondNew.Title }}
+      .latest-new-description(v-html="secondNew.Description")
 
-      .content-section
-        p Puppets and décor: Georg Baselitz
+    .d-flex.justify-content-end
+      button.btn.btn-outline-light.mt-4(@click="router.push({ name: 'new-detail', params: { id: secondNew?.Id } })") Read more
 
-      .content-section
-        p A co-production with the Salzburg Festival
-
-      .mt-5
-        router-link.btn.btn-outline-light.py-2.px-5(to="/news/1")
-          span.text-white Read more
+  .mt-4
+    NewTable(
+      v-if="news && news.list",
+      :news-items="news.list",
+    )
 </template>
 
 <script setup lang="ts">
 import {
+  ref,
+  onMounted,
+} from 'vue';
+import { useRouter } from 'vue-router';
+import { newServices } from '@/services';
+import {
   BasicLayout,
   Hero,
   MediaCard,
+  NewTable,
+  FullPageLoading,
 } from '@/components';
 import NewsPageBanner from '@/assets/imgs/news-page-banner.jpg';
+
+const router = useRouter();
+
+const isLoading = ref(true);
+const news = ref<null | Record<string, any>>(null);
+const latestNew = ref<null | Record<string, any>>(null);
+const secondNew = ref<null | Record<string, any>>(null);
+
+const getNews = async () => {
+  const res = await newServices.getNews() as null | Record<string, any>;
+
+  if (res && res.list && res.list.length) {
+    news.value = res;
+
+    const lastNews = res.list[res.list.length - 1];
+
+    latestNew.value = lastNews;
+
+    if (res.list.length > 1) {
+      const secondLastNews = res.list[res.list.length - 2];
+
+      secondNew.value = secondLastNews;
+    }
+  }
+
+  isLoading.value = false;
+};
+
+onMounted(() => {
+  getNews();
+});
 </script>
