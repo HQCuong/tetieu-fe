@@ -1,14 +1,14 @@
 export const NAVIGATION_ITEMS = [
   {
-    label: 'Tickets',
+    label: 'Lịch diễn',
     to: '/tickets',
   },
   {
-    label: 'News',
+    label: 'Tin tức',
     to: '/news',
   },
   {
-    label: 'Contact',
+    label: 'Liên hệ',
     to: '/contact',
   },
 ];

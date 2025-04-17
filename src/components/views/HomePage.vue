@@ -4,7 +4,7 @@ BasicLayout
   PerformanceTable(:performances="PERFORMANCES")
 
   Heading.text-center(
-    title="The Salzburg Marionette Theatre",
+    title=" RỐI TẾ TIÊU",
     :style="{ marginTop: '6rem', marginBottom: '3rem' }",
   )
   MediaCard(
@@ -12,19 +12,14 @@ BasicLayout
     image-src="https://marionetten.at/assets/images/Haende1_2022-08-02-091704_lqec.JPG",
     background-color="#ffffff",
   )
-    .ps-3
-      h4 The high art of puppetry
-      p.font-normal.fw-bold What makes the Salzburg Marionette Theatre different from other theatres?
-      p.font-normal
-        | This special performance technique,
-        | has been declared a cultural asset worthy of preservation,
-        | as the "most highly developed form of puppet and figure theatre",
-        | earning the Salzburg Marionette Theatre a place in the UNESCO List of Intangible Cultural Heritage.
-
-      button.btn.btn-outline-dark Unesco Intangible Cultural Heritage
+    .me-3.text-end
+      h4 {{ HOME_PAGE_TITLE_SECTION.title }}
+      p.font-normal {{ HOME_PAGE_TITLE_SECTION.subTitle }}
+      p.font-normal {{ HOME_PAGE_TITLE_SECTION.content }}
+      button.btn.btn-outline-dark {{ HOME_PAGE_TITLE_SECTION.buttonText }}
 
   Heading.text-center(
-    title="News",
+    title="TIN TỨC",
     :style="{ marginTop: '6rem', marginBottom: '3rem' }",
   )
   .mt-5
@@ -34,11 +29,12 @@ BasicLayout
       :image-src="latestNew.Thumbnail",
       background-color="#2b5a6e",
     )
-      .text-white
-        h4.latest-new-title.mb-4 {{ latestNew.Title }}
-        .latest-new-description(v-html="latestNew.Description")
+      .ms-3
+        .text-white
+          h4.latest-new-title.mb-4 {{ latestNew.Title }}
+          .latest-new-description(v-html="latestNew.Description")
 
-      button.btn.btn-outline-light.mt-4(@click="router.push({ name: 'new-detail', params: { id: latestNew?.Id } })") Read more
+        button.btn.btn-outline-light.mt-4(@click="router.push({ name: 'new-detail', params: { id: latestNew?.Id } })") Read more
 </template>
 
 <script setup lang="ts">
@@ -48,7 +44,10 @@ import {
 } from 'vue';
 import { useRouter } from 'vue-router';
 import { newServices } from '@/services';
-import { PERFORMANCES } from '@/configs';
+import {
+  HOME_PAGE_TITLE_SECTION,
+  PERFORMANCES,
+} from '@/configs';
 import {
   BasicLayout,
   Hero,

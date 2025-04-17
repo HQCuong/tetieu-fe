@@ -10,15 +10,15 @@ footer.py-4.py-md-5.mt-auto.border-top
               :src="BrandIcon",
             )
           .ms-3
-            h5.fw-bold.mb-2 Salzburger Marionettentheater
-            p.mb-1 Schwarzstraße 24
-            p.mb-1 5020 Salzburg
+            h5.fw-bold.mb-2 Rối Tế Tiêu
+            p.mb-1 2 Đại Nghĩa
+            p.mb-1 TT.Đại Nghĩa, Mỹ Đức, Hà Nội
             p.mb-2
               a.link-secondary.text-decoration-none(href="tel:+43662872406")
-                | +43 / 662 / 87 24 06
+                | +84 961 580 259
             p.mb-3
               a.link-secondary.text-decoration-none(href="mailto:info@marionetten.at")
-                | info@marionetten.at
+                | roitetieu@gmail.com
 
       .col-lg-auto.col-md-3.ps-lg-4.border-start-lg
         h6.mb-3 Links
@@ -33,10 +33,10 @@ footer.py-4.py-md-5.mt-auto.border-top
             a.link-secondary.text-decoration-none(href="#") Termination Policy
 
       .col-lg-4.col-md-4.ps-lg-4.border-start-lg
-        p.small.mb-1.fw-bold United Nations Educational, Scientific and Cultural Organization
-        p.small.mb-1 Österreichische UNESCO - Kommission
-        p.small.mb-1 Immaterielles Kulturerbe / Nationales Verzeichnis
-        p.small Spielpraxis des Salzburger Marionettentheaters anerkannt 2016
+        p.small.mb-1.fw-bold Khu Bảo Tồn Rối Tế Tiêu
+        p.small.mb-1 Di Sản Văn Hóa Phi Vật Thể
+        p.small.mb-1 Liên Hiệp Các Hội Unesco Việt Nam
+        p.small Nghệ nhân ưu tú Phạm Công Bằng
 
 </template>
 
