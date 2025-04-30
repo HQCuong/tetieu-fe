@@ -1,2 +1,3 @@
 // Services
-export * from './news';
+export * from './new';
+export * from './performance';

@@ -10,8 +10,9 @@ BasicLayout(v-else)
       :image-src="latestNew.Thumbnail",
       background-color="#ffffff",
     )
-      h4.latest-new-title.mb-4 {{ latestNew.Title }}
-      .latest-new-description(v-html="latestNew.Description")
+      h4.latest-new-title.mb-4
+        router-link.text-dark.text-decoration-none(:to="{ name: 'new-detail', params: { id: latestNew?.Id } }") {{ latestNew.Title }}
+      p.latest-new-description.fw-lighter(v-html="latestNew.Description")
 
       button.btn.btn-outline-dark.mt-4(@click="router.push({ name: 'new-detail', params: { id: latestNew?.Id } })") Read more
 
@@ -22,8 +23,9 @@ BasicLayout(v-else)
       background-color="#2b5a6e",
     )
       .text-white.text-end
-        h4.latest-new-title.mb-4 {{ secondNew.Title }}
-        .latest-new-description(v-html="secondNew.Description")
+        h4.second-new-title.mb-4
+          router-link.text-white.text-decoration-none(:to="{ name: 'new-detail', params: { id: secondNew?.Id } }") {{ secondNew.Title }}
+        p.second-new-description.fw-lighter(v-html="secondNew.Description")
 
       .d-flex.justify-content-end
         button.btn.btn-outline-light.mt-4(@click="router.push({ name: 'new-detail', params: { id: secondNew?.Id } })") Read more

@@ -26,6 +26,7 @@ export const newServices = {
       const queryParams = {
         offset: offset,
         limit: limit,
+        sort: '-CreatedAt', // Add sorting parameter for newest first
         // Include other potential parameters from input if needed
         // Example: ...params (if params could contain other valid API params)
       };

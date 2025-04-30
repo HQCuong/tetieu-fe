@@ -29,12 +29,12 @@ BasicLayout
       :image-src="latestNew.Thumbnail",
       background-color="#2b5a6e",
     )
-      .ms-3
-        .text-white
-          h4.latest-new-title.mb-4 {{ latestNew.Title }}
-          p.latest-new-description(v-html="latestNew.Description")
+      .text-white
+        h4.latest-new-title.mb-4
+          router-link.text-white.text-decoration-none(:to="{ name: 'new-detail', params: { id: latestNew?.Id } }") {{ latestNew.Title }}
+        p.latest-new-description.fw-lighter(v-html="latestNew.Description")
 
-        button.btn.btn-outline-light.mt-3(@click="router.push({ name: 'new-detail', params: { id: latestNew?.Id } })") Read more
+      button.btn.btn-outline-light.mt-3(@click="router.push({ name: 'new-detail', params: { id: latestNew?.Id } })") Read more
 
     MediaCard(
       v-if="secondNew",
@@ -43,8 +43,9 @@ BasicLayout
       background-color="#2b5a6e",
     )
       .text-white.text-end
-        h4.latest-new-title.mb-4 {{ secondNew.Title }}
-        p.latest-new-description(v-html="secondNew.Description")
+        h4.second-new-title.mb-4
+          router-link.text-white.text-decoration-none(:to="{ name: 'new-detail', params: { id: secondNew?.Id } }") {{ secondNew.Title }}
+        p.second-new-description.fw-lighter(v-html="secondNew.Description")
 
       .d-flex.justify-content-end.mt-3
         button.btn.btn-outline-light(@click="router.push({ name: 'new-detail', params: { id: secondNew?.Id } })") Read more

@@ -1,7 +1,8 @@
 <template lang="pug">
 StickyHeader
 slot
-Hero(:img="FooterImg")
+.mb-4
+  Hero(:img="FooterImg")
 Footer
 </template>
 
