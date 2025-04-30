@@ -1,8 +1,6 @@
 <template lang="pug">
 // Only render the container if there is data or potentially during loading (optional)
-.performance-table-section.container.my-5(v-if="performanceList.length > 0")
-  // Restore original static title
-  h2.my-4 LỊCH DIỄN SẮP TỚI
+.performance-table-section.container(v-if="performanceList.length > 0")
   .list-group
     .list-group-item.border-0.border-top.p-4(
       v-for="(item) in performanceList",
@@ -41,8 +39,9 @@ import {
 import {
   format,
   parseISO,
-  startOfMonth,
   endOfMonth,
+  differenceInDays,
+  endOfDay,
 } from 'date-fns';
 import { vi } from 'date-fns/locale';
 import {
@@ -109,16 +108,27 @@ const formatDateTime = (dateTimeString: string): string => {
 
 // Fetch data when the component mounts
 onMounted(async () => {
+  // Default sort remains
   const params: GetPerformancesPageParams = { sort: 'Date_Time' };
+  let clientSideFilterNeeded = false; // Flag for client-side filtering
 
   try {
     // Archive Mode: Year and Month provided
     if (props.year !== null && props.month !== null && props.month >= 1 && props.month <= 12) {
+      clientSideFilterNeeded = true; // Set flag for archive mode
       const dateForMonth = new Date(props.year, props.month - 1, 1);
-      const startDate = format(startOfMonth(dateForMonth), 'yyyy-MM-dd');
-      const endDate = format(endOfMonth(dateForMonth), 'yyyy-MM-dd');
+      const endOfMonthDate = endOfDay(endOfMonth(dateForMonth)); // End of the last day of the month
+      const now = new Date();
 
-      params.where = `(Date_Time,ge,'${startDate}')~and(Date_Time,le,'${endDate}')`;
+      // Calculate days from now until the end of the selected month
+      // Ensure it's not negative if the selected month is in the past
+      const daysUntilEndOfMonth = Math.max(0, differenceInDays(endOfMonthDate, now));
+
+      // Fetch from today up to N days from now (covering the end of the selected month)
+      // Using ~and as it was syntactically accepted before
+      params.where = `(Date_Time,ge,daysFromNow,0)~and(Date_Time,le,daysFromNow,${daysUntilEndOfMonth})`;
+      // Remove limit for archive view to get all relevant data for filtering
+      delete params.limit;
     }
     // Recent Mode: showRecent is true
     else if (props.showRecent) {
@@ -130,14 +140,33 @@ onMounted(async () => {
       params.where = '(Date_Time,ge,daysFromNow,0)';
     }
 
-    const response = await performanceServices.getPerformances(params) as null | Record<string, any>;
+    const response = await performanceServices.getPerformances(params) as null | { list: ApiPerformance[] };
 
-    // Simplified response check
+    let rawList: ApiPerformance[] = [];
+
     if (response && response.list && Array.isArray(response.list)) {
-      performanceList.value = response.list;
-    } else {
-      performanceList.value = [];
+      rawList = response.list;
     }
+
+    // Apply client-side filtering if needed (Archive Mode)
+    if (clientSideFilterNeeded) {
+      performanceList.value = rawList.filter(item => {
+        try {
+          const itemDate = parseISO(item.Date_Time); // Get JS Date object
+
+          // Use native JS Date methods
+          return itemDate.getFullYear() === props.year && itemDate.getMonth() === (props.month! - 1);
+        } catch (e) {
+          console.error('Error parsing date during client-side filter:', item.Date_Time, e);
+
+          return false; // Exclude items with invalid dates
+        }
+      });
+    } else {
+      // Assign directly if no client-side filtering is needed
+      performanceList.value = rawList;
+    }
+
   } catch (error) {
     performanceList.value = [];
     console.error('Error fetching performances:', error);

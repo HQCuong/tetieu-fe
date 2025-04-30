@@ -1,10 +1,16 @@
 <template lang="pug">
 BasicLayout
   Hero(:img="HomePageBanner")
+
+  Heading.text-center(
+    title="Lịch diễn sắp tới",
+    :style="{ marginTop: '6rem'}",
+  )
+
   PerformanceTable(show-recent)
 
   Heading.text-center(
-    title=" RỐI TẾ TIÊU",
+    title="RỐI TẾ TIÊU",
     :style="{ marginTop: '6rem', marginBottom: '3rem' }",
   )
   MediaCard(

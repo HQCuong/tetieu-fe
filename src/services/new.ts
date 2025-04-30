@@ -35,7 +35,7 @@ export const newServices = {
       const res = await axios.get(requestUrl, { params: queryParams });
 
       // Return the actual data from the response
-      return res;
+      return res.data;
     } catch (error) {
       console.error('Error fetching news:', error);
 

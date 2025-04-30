@@ -43,9 +43,7 @@ export const performanceServices = {
       const res = await axios.get(requestUrl, { params: queryParams });
 
       // Return the actual data from the response
-      // Assuming the API response structure includes a 'list' property
-      // Adjust based on your actual API response structure if needed
-      return res; // Return res.data directly as assumed by the component
+      return res.data; // Ensure this returns res.data
     } catch (error) {
       console.error('Error fetching performances:', error);
 
