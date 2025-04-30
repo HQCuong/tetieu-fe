@@ -16,7 +16,7 @@ BasicLayout
       h4 {{ HOME_PAGE_TITLE_SECTION.title }}
       p.font-normal {{ HOME_PAGE_TITLE_SECTION.subTitle }}
       p.font-normal {{ HOME_PAGE_TITLE_SECTION.content }}
-      button.btn.btn-outline-dark {{ HOME_PAGE_TITLE_SECTION.buttonText }}
+      button.btn.btn-outline-dark.mt-3 {{ HOME_PAGE_TITLE_SECTION.buttonText }}
 
   Heading.text-center(
     title="TIN TỨC",
@@ -32,9 +32,22 @@ BasicLayout
       .ms-3
         .text-white
           h4.latest-new-title.mb-4 {{ latestNew.Title }}
-          .latest-new-description(v-html="latestNew.Description")
+          p.latest-new-description(v-html="latestNew.Description")
 
-        button.btn.btn-outline-light.mt-4(@click="router.push({ name: 'new-detail', params: { id: latestNew?.Id } })") Read more
+        button.btn.btn-outline-light.mt-3(@click="router.push({ name: 'new-detail', params: { id: latestNew?.Id } })") Read more
+
+    MediaCard(
+      v-if="secondNew",
+      dir="rtl",
+      :image-src="secondNew.Thumbnail",
+      background-color="#2b5a6e",
+    )
+      .text-white.text-end
+        h4.latest-new-title.mb-4 {{ secondNew.Title }}
+        p.latest-new-description(v-html="secondNew.Description")
+
+      .d-flex.justify-content-end.mt-3
+        button.btn.btn-outline-light(@click="router.push({ name: 'new-detail', params: { id: secondNew?.Id } })") Read more
 </template>
 
 <script setup lang="ts">
@@ -60,6 +73,7 @@ import HomePageBanner from '@/assets/imgs/home-page-banner.jpg';
 const router = useRouter();
 
 const latestNew = ref<null | Record<string, any>>(null);
+const secondNew = ref<null | Record<string, any>>(null);
 
 const getFirstNew = async () => {
   const news = await newServices.getNews() as null | Record<string, any>;
@@ -68,6 +82,12 @@ const getFirstNew = async () => {
     const lastNews = news.list[news.list.length - 1];
 
     latestNew.value = lastNews;
+
+    if (news.list.length > 1) {
+      const secondLastNews = news.list[news.list.length - 2];
+
+      secondNew.value = secondLastNews;
+    }
   }
 };
 
