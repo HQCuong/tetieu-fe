@@ -3,39 +3,49 @@ import axios from '@axios';
 // Replace 'PERFORMANCE_TABLE_ID' with the actual NocoDB table ID for performances
 const requestUrl = '/v2/tables/mvx3m1bzow5ac1l/records';
 
-// Define constant for items per page
-const DEFAULT_LIMIT = 5; // Or adjust if needed for performances
-
-// Define an interface for page-based parameters
-interface GetPerformancesPageParams {
+// Define an interface for parameters, including pagination, sorting, and filtering
+export interface GetPerformancesPageParams { // Export the interface
   page?: number; // Page number (1-based)
+  limit?: number; // Number of items per page
+  sort?: string; // Sort field and direction (e.g., 'Date', '-CreatedAt')
+  where?: string; // NocoDB style where clause (e.g., '(Date,ge,2023-10-27)')
   // Add other potential filter/sort parameters here if needed
 }
 
 export const performanceServices = {
-  // Function to get a list of performances with pagination and sorting
+  // Function to get a list of performances with pagination, sorting, and filtering
   getPerformances: async (params: GetPerformancesPageParams = {}) => {
     try {
-      // Determine page number (default to 1 if not provided or invalid)
+      // Determine page number and limit from params
       const page = (params.page && params.page > 0) ? params.page : 1;
+      const limit = params.limit; // Use limit from params if provided
 
-      // Calculate limit and offset
-      const limit = DEFAULT_LIMIT;
-      const offset = (page - 1) * limit; // Calculate offset from 1-based page
+      // Calculate offset only if limit is provided
+      const offset = (limit && page > 1) ? (page - 1) * limit : 0;
 
-      // Prepare query parameters for the API call
-      const queryParams = {
-        offset: offset,
-        limit: limit,
-        sort: '-CreatedAt', // Sort by creation date, newest first (adjust column name if different)
-        // Include other potential parameters from input if needed
-      };
+      // Prepare query parameters for the API call using provided params
+      const queryParams: Record<string, any> = { offset: offset };
+
+      // Add parameters to queryParams only if they exist in the input params
+      if (limit !== undefined) {
+        queryParams.limit = limit;
+      }
+
+      if (params.sort) {
+        queryParams.sort = params.sort;
+      }
+
+      if (params.where) {
+        queryParams.where = params.where;
+      }
 
       // Pass the calculated queryParams object to axios config
       const res = await axios.get(requestUrl, { params: queryParams });
 
       // Return the actual data from the response
-      return res;
+      // Assuming the API response structure includes a 'list' property
+      // Adjust based on your actual API response structure if needed
+      return res; // Return res.data directly as assumed by the component
     } catch (error) {
       console.error('Error fetching performances:', error);
 

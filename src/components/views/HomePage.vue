@@ -1,7 +1,7 @@
 <template lang="pug">
 BasicLayout
   Hero(:img="HomePageBanner")
-  PerformanceTable(:performances="PERFORMANCES")
+  PerformanceTable(show-recent)
 
   Heading.text-center(
     title=" RỐI TẾ TIÊU",
@@ -58,10 +58,7 @@ import {
 } from 'vue';
 import { useRouter } from 'vue-router';
 import { newServices } from '@/services';
-import {
-  HOME_PAGE_TITLE_SECTION,
-  PERFORMANCES,
-} from '@/configs';
+import { HOME_PAGE_TITLE_SECTION } from '@/configs';
 import {
   BasicLayout,
   Hero,

@@ -7,6 +7,7 @@ import {
   HomePage,
   NewDetailPage,
   NewsPage,
+  PerformancePage,
 } from '@/components';
 
 // Define type for routes array
@@ -25,6 +26,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/news/:id',
     name: 'new-detail',
     component: NewDetailPage,
+  },
+  {
+    path: '/performances',
+    name: 'performances',
+    component: PerformancePage,
   },
   // Catch-all route: Must be the last route
   {
