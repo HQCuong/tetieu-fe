@@ -1,10 +1,4 @@
-
-/* Update class name */
-.performance-table-section {
-  /* Consider using SCSS variables for colors if applicable */
-  border-top: 2px solid #000;
-}
 .list-group-item {
   /* Consider using SCSS variables for colors if applicable */
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #aaa; // Changed from #ccc to a darker grey
 }

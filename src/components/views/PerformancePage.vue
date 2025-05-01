@@ -1,9 +1,7 @@
 <template lang="pug">
 BasicLayout
   Hero(:img="HomePageBanner")
-  .performance-page.container.my-5
-    h1 Lịch diễn
-
+  .performance-page.container.py-5
     // Filter Section - Replaced with Arrow Navigation
     .row.g-3.my-4.justify-content-center.align-items-center
       .col-auto

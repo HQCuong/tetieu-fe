@@ -1,33 +1,52 @@
 <template lang="pug">
-// Only render the container if there is data or potentially during loading (optional)
-.performance-table-section.container(v-if="performanceList.length > 0")
-  .list-group
-    .list-group-item.border-0.border-top.p-4(
-      v-for="(item) in performanceList",
-      :key="item.Id",
-    )
-      .row.align-items-center
-        // Column 1: Date/Time - Updated bindings
-        .col-md-3.mb-3.mb-md-0
-          h6.text-uppercase.mb-1 {{ formatDayOfWeek(item.Date_Time) }}
-          p.mb-0 {{ formatDateTime(item.Date_Time) }}
+// Add min-height to prevent layout shift during loading
+.performance-table-section.container.my-5(style="min-height: 300px;")
 
-        // Column 2: Title/Author
-        .col-md-4
-          h6.text-danger.fw-bold.mb-1 {{ item.Title }}
-          p.mb-0 {{ item.Author }}
+  // Loading State
+  .d-flex.justify-content-center.align-items-center.h-100(
+    v-if="isLoading",
+    style="min-height: inherit;",
+  )
+    .spinner-border(role="status")
+      span.visually-hidden Loading...
 
-        // Column 3: Location
-        .col-md-2.mb-3.mb-md-0
-          div(v-html="item.Location")
+  // Content Area (Table or Empty State) - Shown after loading
+  div(v-else)
+    // Table View - Shown only if not loading and list has items
+    div(v-if="performanceList.length > 0")
+      Heading(title="Lịch diễn sắp tới")
+      .list-group
+        .list-group-item.border-0.border-top.p-4(
+          v-for="(item) in performanceList",
+          :key="item.Id",
+        )
+          .row.align-items-center
+            // Column 1: Date/Time - Updated bindings
+            .col-md-3.mb-3.mb-md-0
+              h6.text-uppercase.mb-1 {{ formatDayOfWeek(item.Date_Time) }}
+              p.mb-0 {{ formatDateTime(item.Date_Time) }}
 
-        // Column 4: Button
-        .col-md-3.text-md-end
-          a.btn.btn-outline-dark(
-            :href="item.URL"
-            target="_blank"
-            rel="noopener noreferrer"
-          ) Chi tiết
+            // Column 2: Title/Author
+            .col-md-4
+              h6.text-danger.fw-bold.mb-1 {{ item.Title }}
+              p.mb-0 {{ item.Author }}
+
+            // Column 3: Location
+            .col-md-2.mb-3.mb-md-0
+              div(v-html="item.Location")
+
+            // Column 4: Button
+            .col-md-3.text-md-end
+              a.btn.btn-outline-dark(
+                :href="item.URL"
+                target="_blank"
+                rel="noopener noreferrer"
+              ) Chi tiết
+
+    // Empty State View - Shown only if not loading and list is empty
+    .alert.alert-light.text-center.p-5(v-else)
+      p.mb-0 Không có lịch diễn nào
+
 </template>
 
 <script lang="ts" setup>
@@ -48,6 +67,7 @@ import {
   type GetPerformancesPageParams,
   performanceServices,
 } from '@/services';
+import { Heading } from '@/components';
 
 // Define props
 const props = defineProps({
@@ -79,6 +99,7 @@ interface ApiPerformance {
 
 // Ref to store the list of performances
 const performanceList = ref<ApiPerformance[]>([]);
+const isLoading = ref(true); // Add loading state ref
 
 // Helper function to format day of the week in Vietnamese
 const formatDayOfWeek = (dateTimeString: string): string => {
@@ -108,6 +129,7 @@ const formatDateTime = (dateTimeString: string): string => {
 
 // Fetch data when the component mounts
 onMounted(async () => {
+  isLoading.value = true; // Start loading
   // Default sort remains
   const params: GetPerformancesPageParams = { sort: 'Date_Time' };
   let clientSideFilterNeeded = false; // Flag for client-side filtering
@@ -170,6 +192,8 @@ onMounted(async () => {
   } catch (error) {
     performanceList.value = [];
     console.error('Error fetching performances:', error);
+  } finally {
+    isLoading.value = false; // End loading regardless of success/error
   }
 });
 </script>

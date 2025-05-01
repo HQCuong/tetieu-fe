@@ -2,12 +2,11 @@
 BasicLayout
   Hero(:img="HomePageBanner")
 
-  Heading.text-center(
-    title="Lịch diễn sắp tới",
-    :style="{ marginTop: '6rem'}",
-  )
+  .mt-5
+    PerformanceTable(show-recent)
 
-  PerformanceTable(show-recent)
+  .text-center
+    button.btn.btn-outline-dark.mt-3(@click="router.push({ name: 'performances'})") Xem tất cả lịch diễn
 
   Heading.text-center(
     title="RỐI TẾ TIÊU",
