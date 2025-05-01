@@ -61,7 +61,7 @@ import {
   FullPageLoading,
   Pagination,
 } from '@/components';
-import NewsPageBanner from '@/assets/imgs/news-page-banner.jpg';
+import NewsPageBanner from '@/assets/imgs/news-banner.jpg';
 
 const router = useRouter();
 

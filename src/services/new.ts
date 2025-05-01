@@ -47,7 +47,7 @@ export const newServices = {
     try {
       const res = await axios.get(`${requestUrl}/${id}`);
 
-      return res;
+      return res.data; // Ensure this returns res.data
     } catch (error) {
       console.error(`Error fetching new with id ${id}:`, error);
 

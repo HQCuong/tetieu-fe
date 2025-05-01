@@ -1,6 +1,6 @@
 <template lang="pug">
 BasicLayout
-  Hero(:img="HomePageBanner")
+  Hero(:img="PerformancePageBanner")
   .performance-page.container.py-5
     // Filter Section - Replaced with Arrow Navigation
     .row.g-3.my-4.justify-content-center.align-items-center
@@ -38,7 +38,7 @@ import {
   BasicLayout,
   PerformanceTable,
 } from '@/components'; // Import any other components you need
-import HomePageBanner from '@/assets/imgs/home-page-banner.jpg';
+import PerformancePageBanner from '@/assets/imgs/performance-banner.jpg';
 // Optional: Import Bootstrap Icons CSS if not globally included
 // import 'bootstrap-icons/font/bootstrap-icons.css';
 

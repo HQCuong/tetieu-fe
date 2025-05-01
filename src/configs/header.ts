@@ -1,7 +1,7 @@
 export const NAVIGATION_ITEMS = [
   {
     label: 'Lịch diễn',
-    to: '/tickets',
+    to: '/performances',
   },
   {
     label: 'Tin tức',
@@ -15,45 +15,37 @@ export const NAVIGATION_ITEMS = [
 
 export const BURGER_MENU_ITEMS = [
   {
-    title: 'Programme',
+    title: 'Chương trình',
     items: [
       {
-        label: 'Tickets',
-        to: '/tickets',
+        label: 'Lịch diễn',
+        to: '/performances',
       },
       {
-        label: 'Calendar',
-        to: '/calendar',
+        label: 'Show diễn',
+        to: '/shows',
       },
     ],
   },
   {
-    title: 'Theatre',
+    title: 'Thông tin',
     items: [
       {
-        label: 'News',
+        label: 'Tin tức',
         to: '/news',
       },
       {
-        label: 'Products',
-        to: '/products',
-      },
-      {
-        label: 'History',
+        label: 'Lịch sử',
         to: '/history',
       },
     ],
   },
   {
-    title: 'Service',
+    title: 'Dịch vụ',
     items: [
       {
-        label: 'Contact',
+        label: 'Liên hệ',
         to: '/contact',
-      },
-      {
-        label: 'Newsletter',
-        to: '/newsletter',
       },
     ],
   },
