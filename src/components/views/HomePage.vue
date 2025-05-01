@@ -1,6 +1,6 @@
 <template lang="pug">
 BasicLayout
-  Hero(:img="HomePageBanner")
+  HeroCarousel
 
   .mt-5
     PerformanceTable(show-recent)
@@ -66,12 +66,11 @@ import { newServices } from '@/services';
 import { HOME_PAGE_TITLE_SECTION } from '@/configs';
 import {
   BasicLayout,
-  Hero,
+  HeroCarousel,
   MediaCard,
   PerformanceTable,
   Heading,
 } from '@/components';
-import HomePageBanner from '@/assets/imgs/home-page-banner.jpg';
 
 const router = useRouter();
 
