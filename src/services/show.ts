@@ -2,36 +2,35 @@ import axios from '@axios';
 
 const requestUrl = '/v2/tables/mggu1r19xdmp1s3/records';
 
-// Define constant for items per page
-const DEFAULT_LIMIT = 5;
+// Remove constant for items per page
+// const DEFAULT_LIMIT = 5;
 
-// Define an interface for page-based parameters
-interface GetShowsPageParams {
-  page?: number; // Page number (1-based)
+// Remove interface for page-based parameters or make page optional
+interface GetShowsParams { // Renamed interface
+  sort?: string; // Keep sort if needed
+  where?: string; // Keep where if needed
   // Add other potential filter/sort parameters here if needed
 }
 
 export const showService = {
-  // Update function signature to accept GetShowsPageParams
-  getShows: async (params: GetShowsPageParams = {}) => { // Default params to empty object
+  // Update function signature to accept GetShowsParams
+  getShows: async (params: GetShowsParams = {}) => { // Default params to empty object
     try {
-      // Determine page number (default to 1 if not provided or invalid)
-      const page = (params.page && params.page > 0) ? params.page : 1;
-
-      // Calculate limit and offset
-      const limit = DEFAULT_LIMIT;
-      const offset = (page - 1) * limit; // Calculate offset from 1-based page
+      // Remove page, limit, offset calculation
 
       // Prepare query parameters for the API call
-      const queryParams = {
-        offset: offset,
-        limit: limit,
-        sort: '-CreatedAt', // Add sorting parameter for newest first
-        // Include other potential parameters from input if needed
-        // Example: ...params (if params could contain other valid API params)
+      const queryParams: Record<string, any> = {
+        // Remove offset and limit
+        sort: params.sort || '-CreatedAt', // Keep sorting or default
       };
 
+      if (params.where) {
+        queryParams.where = params.where;
+      }
+
       // Pass the calculated queryParams object to axios config
+      // NocoDB default limit might be 20, explicitly set a high limit if needed
+      // queryParams.limit = 1000; // Example: Fetch up to 1000 records
       const res = await axios.get(requestUrl, { params: queryParams });
 
       // Return the actual data from the response

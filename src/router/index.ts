@@ -11,6 +11,7 @@ import {
   ContactPage,
   ShowPage,
   HistoryPage,
+  ShowDetailPage,
 } from '@/components';
 
 // Define type for routes array
@@ -39,6 +40,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/shows',
     name: 'shows',
     component: ShowPage,
+  },
+  {
+    path: '/shows/:id',
+    name: 'show-detail',
+    component: ShowDetailPage,
   },
   {
     path: '/contact',
