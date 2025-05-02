@@ -1,4 +1,3 @@
-<!-- eslint-disable @stylistic/js/max-len -->
 <template lang="pug">
 BasicLayout
   Hero(:img="InfoBanner")
@@ -31,7 +30,7 @@ BasicLayout
         )
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { INFO_PAGE_CONTENT } from '@/configs';
 import {
   Heading,
