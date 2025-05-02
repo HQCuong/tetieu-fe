@@ -54,7 +54,7 @@ import {
   MediaCard,
 } from '@/components';
 import ShowsBanner from '@/assets/imgs/shows-banner.jpg';
-import ShowsIntroImg from '@/assets/imgs/shows-intro-img.jpeg';
+import ShowsIntroImg from '@/assets/imgs/shows-intro-img.jpg';
 
 // Define Show interface including Type
 interface Show {

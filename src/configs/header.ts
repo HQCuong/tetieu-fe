@@ -38,6 +38,10 @@ export const BURGER_MENU_ITEMS = [
         label: 'Lịch sử',
         to: '/history',
       },
+      {
+        label: 'Chi tiết',
+        to: '/info',
+      },
     ],
   },
   {

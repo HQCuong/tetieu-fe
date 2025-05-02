@@ -11,6 +11,7 @@ import {
   ContactPage,
   ShowPage,
   HistoryPage,
+  InfoPage,
   ShowDetailPage,
 } from '@/components';
 
@@ -55,6 +56,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/history',
     name: 'history',
     component: HistoryPage,
+  },
+  {
+    path: '/info',
+    name: 'info',
+    component: InfoPage,
   },
   // Catch-all route: Must be the last route
   {
