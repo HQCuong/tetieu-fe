@@ -24,13 +24,19 @@ footer.py-4.py-md-5.mt-auto.border-top
         h6.mb-3 Links
         ul.list-unstyled.mb-0
           li.mb-2
-            a.link-secondary.text-decoration-none(href="#") Imprint
+            a.link-secondary.text-decoration-none(
+              href="https://www.facebook.com/roitetieu",
+              target="_blank",
+            ) Facebook
           li.mb-2
-            a.link-secondary.text-decoration-none(href="#") Privacy Policy
-          li.mb-2
-            a.link-secondary.text-decoration-none(href="#") Terms of Use
-          li.mb-2
-            a.link-secondary.text-decoration-none(href="#") Termination Policy
+            a.link-secondary.text-decoration-none(
+              href="https://www.instagram.com/roitetieu",
+              target="_blank",
+            ) Instagram
+          //- li.mb-2
+          //-   a.link-secondary.text-decoration-none(href="#") Terms of Use
+          //- li.mb-2
+          //-   a.link-secondary.text-decoration-none(href="#") Termination Policy
 
       .col-lg-4.col-md-4.ps-lg-4.border-start-lg
         p.small.mb-1.fw-bold Khu Bảo Tồn Rối Tế Tiêu
