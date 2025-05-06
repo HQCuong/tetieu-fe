@@ -42,6 +42,10 @@ export const BURGER_MENU_ITEMS = [
         label: 'Chi tiết',
         to: '/info',
       },
+      {
+        label: 'Thành viên',
+        to: '/members',
+      },
     ],
   },
   {
