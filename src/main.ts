@@ -11,6 +11,6 @@ const app = createApp(App);
 app.use(router);
 app.use(i18n);
 
-router.isReady().then(() => {
-  app.mount('#app');
-});
+// Delay mount until the initial route is resolved to avoid flashes of the
+// wrong view when the user deep-links into a page.
+router.isReady().then(() => app.mount('#app'));

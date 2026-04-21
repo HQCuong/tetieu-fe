@@ -1,8 +1,12 @@
 @import 'common/variables';
+@import 'common/mixins';
 @import 'common/base';
 
 @import 'components/footer';
 @import 'components/hero';
+@import 'components/hero-carousel';
 @import 'components/media-card';
+@import 'components/news-table';
 @import 'components/performance-table';
+@import 'components/show-table';
 @import 'components/sticky-header';

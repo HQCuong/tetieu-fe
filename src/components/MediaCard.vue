@@ -7,34 +7,40 @@ section.media-card.w-100.py-5(:style="{ backgroundColor }")
           :src="imageSrc",
           :alt="imageAlt",
         )
-      .col-md-6.mt-4.mt-md-0(
-        :class="{ 'order-md-1': dir === 'rtl' }"
-      )
+      .col-md-6.mt-4.mt-md-0(:class="{ 'order-md-1': dir === 'rtl' }")
         slot
 </template>
 
 <script setup lang="ts">
 interface Props {
-  dir?: 'ltr' | 'rtl'
-  imageSrc: string
-  backgroundColor?: string
-  imageAlt?: string
+  imageSrc: string;
+  dir?: 'ltr' | 'rtl';
+  backgroundColor?: string;
+  imageAlt?: string;
 }
 
 withDefaults(defineProps<Props>(), {
   dir: 'ltr',
   backgroundColor: 'transparent',
-  imageAlt: 'Card Image',
+  imageAlt: 'Card image',
 });
 </script>
 
 <style scoped lang="scss">
+.media-card {
+  overflow: hidden;
+}
+
 .card-image {
   display: block;
-  width: 100%; // Ensure it takes column width
-  height: auto; // Let aspect-ratio determine height based on width
-  aspect-ratio: 1 / 1; // Force square aspect ratio directly on the image element
-  object-fit: cover; // Crop the image to cover the square area, maintaining aspect ratio
-  border-radius: var(--bs-border-radius); // Keep rounded corners
+  width: 100%;
+  height: auto;
+  // Force square aspect ratio on the image itself so layout doesn't shift.
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: var(--bs-border-radius);
+  transition: transform 0.6s ease;
+
+  &:hover { transform: scale(1.02); }
 }
 </style>

@@ -10,7 +10,7 @@
       :disabled="isFirstPage",
       @click.prevent="emit('prev')",
     )
-      span(aria-hidden) &laquo; Prev
+      span(aria-hidden="true") &laquo; Prev
 
     button.btn.btn-outline-dark(
       type="button",
@@ -18,7 +18,7 @@
       :disabled="isLastPage",
       @click.prevent="emit('next')",
     )
-      span(aria-hidden) Next &raquo;
+      span(aria-hidden="true") Next &raquo;
 </template>
 
 <script setup lang="ts">

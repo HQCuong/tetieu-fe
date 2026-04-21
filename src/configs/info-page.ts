@@ -1,5 +1,0 @@
-/* eslint-disable @stylistic/js/max-len */
-export const INFO_PAGE_CONTENT = {
-  title: 'TỪ SÂN KHẤU ĐẾN KHU BẢO TỒN',
-  content: 'Năm 2021, sau bao nỗ lực gìn giữ và phát triển đưa Rối Cạn Tế Tiêu trở thành Di sản văn hoá phi vật thể Quốc gia, gia đình nghệ nhân ưu tú Phạm Công Bằng đã được sự hỗ trợ của nhà nước và chính quyền địa phương mở rộng khu vực hoạt động của Phường rối.  Từ một sân khấu và một không gian sinh hoạt nhỏ, Phường rối Tế Tiêu tại thị trấn Đại Nghĩa, Mỹ Đức, Hà Nội đã được cơi nới thành một khu bảo tồn di sản, có nhiều khu vực với chức năng riêng: Thuỷ đình, Phòng bảo tàng, Nhà thờ, Khu sinh hoạt và không gian sân vườn, tái hiện lại không gian sinh hoạt vùng Bắc Bộ xưa.  Hiện công trình Khu bảo tồn Di sản Rối Tế Tiêu đang đi vào những bước hoàn thiện cuối cùng, dự kiến sẽ khánh thành và đón khách vào tháng 6/2025.  Khu bảo tồn sẽ sớm được đưa vào danh sách Điểm du lịch văn hoá của TP. Hà Nội, góp phần vào sự phát triển văn hoá & nghệ thuật của thủ đô.',
-};

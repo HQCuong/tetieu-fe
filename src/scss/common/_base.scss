@@ -5,14 +5,47 @@
   font-style: normal;
 }
 
-* {
-  font-family: sans-serif;
+body {
+  // Georgia for a theatrical, editorial feel — pairs with the script display font.
+  font-family: Georgia, 'Times New Roman', serif;
+  color: $color-text;
+  -webkit-font-smoothing: antialiased;
 }
 
-body {
-  padding: 10px;
-}
+p { line-height: 1.7; }
 
 .font-heading {
-  font-family: 'heading-font';
+  font-family: 'heading-font', serif;
+  letter-spacing: 0.02em;
+}
+
+// --- Buttons --------------------------------------------------------------
+// Thin, uppercase, wide-tracked buttons to match the reference aesthetic.
+.btn-outline-dark,
+.btn-outline-light {
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-size: 0.8rem;
+  font-weight: 500;
+  padding: 0.65rem 1.6rem;
+  border-radius: 0;
+  border-width: 1px;
+  transition: background-color $transition-fast, color $transition-fast;
+}
+
+// --- Section heading accent ----------------------------------------------
+// A short red rule under the script heading, like ref's divider motif.
+.big-heading {
+  position: relative;
+  text-align: center;
+
+  &::after {
+    content: '';
+    display: block;
+    width: 48px;
+    height: 2px;
+    margin: 0.5rem auto 0;
+    background-color: $color-primary;
+    opacity: 0.8;
+  }
 }

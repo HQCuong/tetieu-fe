@@ -1,0 +1,36 @@
+.show-list-spacious {
+  .list-group-item {
+    transition: background-color $transition-fast;
+    border-top: 1px solid $color-border !important;
+    background-color: $color-bg-subtle;
+
+    &:first-child { border-top: none !important; }
+    &:hover { filter: brightness(96%); }
+  }
+}
+
+.show-item-image {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  display: block;
+  border-radius: 0.25rem;
+
+  @include media-down($bp-md) { height: 100px; }
+}
+
+.show-item-title {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: $color-text;
+  white-space: normal;
+  word-wrap: break-word;
+}
+
+// Keep the title column from expanding to fill remaining row width.
+.title-column {
+  flex-grow: 1;
+  flex-shrink: 1;
+  max-width: 40%;
+  overflow: hidden;
+}

@@ -1,52 +1,28 @@
-// Footer specific variables
-$footer-font-size: 0.875rem;
-// Update background color to an even darker gray
-$footer-bg-color: #e7e5e4; // Was #e9ecef
-$footer-link-color: #6c757d; // Corresponds to .link-secondary
-$footer-link-hover-color: #343a40; // Darker gray/black
-$footer-heading-color: #212529; // Default heading color
-$footer-text-color: #495057; // Default paragraph color
-$footer-border-color: #dee2e6; // Default border color
-
 footer {
-  font-size: $footer-font-size;
-  // Ensure background-color uses the variable
-  background-color: $footer-bg-color;
+  font-size: 0.875rem;
+  background-color: $color-bg-footer;
 
-  // Scope logo size control here
-  .brand-icon {
-    .brand-logo {
-      width: 100px; // Control width via CSS
-      height: auto; // Maintain aspect ratio
-    }
+  .brand-icon .brand-logo {
+    width: 100px;
+    height: auto;
   }
 
-  // Scope link styles
   a.link-secondary {
-    color: $footer-link-color;
-    transition: color 0.2s ease-in-out;
+    color: $color-text-secondary;
+    transition: color $transition-fast;
 
     &:hover {
-      color: $footer-link-hover-color;
-      text-decoration: underline; // Use standard underline, avoid !important
+      color: $color-text-soft;
+      text-decoration: underline;
     }
   }
 
-  // Scope heading styles
-  h5, h6 {
-    color: $footer-heading-color;
-  }
+  h5, h6 { color: $color-text; }
+  p      { color: $color-text-muted; }
 
-  // Scope paragraph styles
-  p {
-    color: $footer-text-color;
-  }
-
-  // Scope border style override
-  @media (min-width: 992px) { // Use Bootstrap's $breakpoint-lg if defined globally
+  @include media-up($bp-lg) {
     .border-start-lg {
-      // Increase specificity to override Bootstrap without !important
-      border-left: 1px solid $footer-border-color;
+      border-left: 1px solid $color-border;
     }
   }
 }

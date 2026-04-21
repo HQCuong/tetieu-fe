@@ -1,4 +1,24 @@
-.list-group-item {
-  /* Consider using SCSS variables for colors if applicable */
-  border-bottom: 1px solid #aaa; // Changed from #ccc to a darker grey
+.performance-table-section {
+  .list-group-item {
+    border-bottom: 1px solid $color-border;
+    padding-top: 1.75rem;
+    padding-bottom: 1.75rem;
+    transition: background-color $transition-fast;
+
+    &:hover { background-color: $color-bg-subtle; }
+
+    // Uppercase + tracked day-of-week label for an editorial look.
+    h6.text-uppercase {
+      letter-spacing: 0.18em;
+      font-size: 0.78rem;
+      color: $color-text-secondary;
+      font-weight: 600;
+    }
+
+    // Red show title — mirror the reference's accent usage.
+    h6.text-danger {
+      font-size: 1rem;
+      letter-spacing: 0.02em;
+    }
+  }
 }

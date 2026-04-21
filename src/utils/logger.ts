@@ -1,9 +1,18 @@
-const prefix = 'project-name';
+import { APP_CONFIG } from '@/constants';
 
-export const logger = {
-  warn: (m: any, ...args: any[]) => import.meta.env.VITE_NODE_ENV === 'development'
-    && console.warn(prefix, m, ...args),
-  log: (m: any, ...args: any[]) => console.log(prefix, m, ...args),
-  error: (m: any, ...args: any[]) => console.error(prefix, m, ...args),
-  info: (m: any, ...args: any[]) => console.info(prefix, m, ...args),
+const PREFIX = '[tetieu]';
+
+type LogFn = (message: unknown, ...args: unknown[]) => void;
+
+// Console wrapper with a consistent prefix. `warn` is suppressed in production
+// to keep console output clean for end users.
+export const logger: Record<'warn' | 'log' | 'error' | 'info', LogFn> = {
+  warn: (m, ...args) => {
+    if (APP_CONFIG.isDev) {
+      console.warn(PREFIX, m, ...args);
+    }
+  },
+  log: (m, ...args) => console.log(PREFIX, m, ...args),
+  error: (m, ...args) => console.error(PREFIX, m, ...args),
+  info: (m, ...args) => console.info(PREFIX, m, ...args),
 };

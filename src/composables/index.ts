@@ -1,1 +1,1 @@
-// Composables
+export * from './useNewsHighlights';

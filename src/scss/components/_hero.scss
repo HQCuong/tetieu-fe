@@ -1,31 +1,11 @@
 .hero {
   position: relative;
   width: 100%;
-  overflow: hidden; /* Ngăn chặn scroll ngang */
+  overflow: hidden;
 }
 
-// Styles for .hero-bg
 .hero-bg {
   width: 100%;
-  height: auto; // Let height adjust based on width and aspect ratio
-  display: block; // Prevent extra space below image
-}
-
-/* Target both 'a' and 'div' rendered by <component> */
-.hero a,
-.hero div {
+  height: auto;
   display: block;
-  width: 100%;
-  position: relative; // Needed if you add absolutely positioned content inside
-}
-
-.hero a { /* Apply cursor only to the link */
-  cursor: pointer;
-}
-
-/* Styles cho màn hình nhỏ */
-@media (max-width: 767px) { /* Consider using a variable like $sticky-header-breakpoint-md */
-  .hero {
-    /* Removed fixed viewport height for mobile */
-  }
 }

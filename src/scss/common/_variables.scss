@@ -1,0 +1,63 @@
+// =========================================================================
+// Design tokens
+// Single source of truth for colors, spacing, typography and breakpoints.
+// Keep all magic numbers out of component stylesheets and reference these.
+// =========================================================================
+
+// --- Palette ----------------------------------------------------------------
+$color-primary:        #f31212d1;
+$color-white:          #ffffff;
+$color-black:          #000000;
+$color-text:           #212529;
+$color-text-muted:     #495057;
+$color-text-secondary: #6c757d;
+$color-text-soft:      #343a40;
+
+$color-bg-subtle:      #f8f9fa;
+$color-bg-hover:       #f1f3f5;
+$color-bg-footer:      #e7e5e4;
+
+$color-border:         #dee2e6;
+$color-border-strong:  #aaaaaa;
+
+$color-accent-dark:    #2b5a6e;
+$color-accent-plum:    #7a5c73; // muted plum for news section (ref: marionetten.at)
+
+// Row accent palette used by ShowTable (soft pastel tints).
+$color-row-accents: (
+  #fff0f0, // pink
+  #e7f5ff, // blue
+  #f0fff0, // honeydew
+  #fff9db, // yellow
+  #f5f5f5, // gray
+  #e6e6fa, // lavender
+);
+
+// --- Shadows ----------------------------------------------------------------
+$shadow-soft: 0 2px 10px rgba(0, 0, 0, 0.1);
+$shadow-menu-bg: rgba(0, 0, 0, 0.95);
+
+// --- Breakpoints (match Bootstrap where possible) ---------------------------
+$bp-md: 767px;
+$bp-lg: 992px;
+$bp-xl: 1280px;
+
+// --- Spacing / sizing -------------------------------------------------------
+$z-header: 1030;
+$z-menu:   1025;
+$z-overlay: 9999;
+
+// --- Transitions ------------------------------------------------------------
+$duration-fast: 0.2s;
+$duration-base: 0.3s;
+$duration-menu: 0.4s;
+
+$transition-fast: $duration-fast ease-in-out;
+$transition-base: $duration-base ease;
+$transition-menu: $duration-menu ease;
+
+// --- Header sizing ----------------------------------------------------------
+$header-brand-height-initial:         120px;
+$header-brand-height-initial-mobile:  70px;
+$header-brand-height-scrolled:        50px;
+$header-brand-height-menu-open:       50px;

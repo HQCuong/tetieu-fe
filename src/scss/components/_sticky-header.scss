@@ -1,61 +1,34 @@
-// Variables with prefix
-$sticky-header-primary-color: #f31212d1;
-$sticky-header-white-color: white;
-$sticky-header-black-color: black;
-$sticky-header-shadow-color: rgba(0, 0, 0, 0.1);
-$sticky-header-menu-bg-color: rgba(0, 0, 0, 0.95);
-$sticky-header-transition-duration: 0.3s;
-$sticky-header-fast-transition-duration: 0.2s;
-$sticky-header-menu-transition-duration: 0.4s;
-$sticky-header-breakpoint-lg: 1280px;
-$sticky-header-breakpoint-md: 767px;
-// Reduce logo height variables
-$sticky-header-brand-height-initial: 120px; // Reduced from 150px
-$sticky-header-brand-height-initial-mobile: 70px; // Reduced from 80px
-$sticky-header-brand-height-scrolled: 50px; // Reduced from 60px
-$sticky-header-brand-height-menu-open: 50px; // Reduced from 60px
-$sticky-header-brand-height-menu-open-mobile: 50px; // Reduced from 60px
-
-/* Header Styles */
 header {
   background-color: transparent;
   padding: 15px 0;
   margin-top: 0.5rem;
-  transition: all $sticky-header-transition-duration ease;
-  z-index: 1030;
+  transition: all $transition-base;
+  z-index: $z-header;
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
 
-  .row {
-    // Default alignment (top)
-  }
-
   .brand-logo {
-    height: $sticky-header-brand-height-initial;
-    transition: height $sticky-header-transition-duration ease;
+    height: $header-brand-height-initial;
+    transition: height $transition-base;
   }
 
   .nav-link {
-    color: $sticky-header-white-color;
-    transition: color $sticky-header-fast-transition-duration ease-in-out;
+    color: $color-white;
+    transition: color $transition-fast;
 
-    &:hover {
-      color: $sticky-header-primary-color;
-    }
+    &:hover { color: $color-primary; }
   }
 
   .burger-svg-icon {
     width: 24px;
     height: 24px;
-    transition: all $sticky-header-transition-duration ease;
-    color: $sticky-header-white-color;
+    transition: all $transition-base;
+    color: $color-white;
     cursor: pointer;
 
-    &.open {
-      transform: rotate(90deg);
-    }
+    &.open { transform: rotate(90deg); }
   }
 
   .hamburger-menu {
@@ -65,55 +38,38 @@ header {
   }
 
   &.header-scrolled {
-    background-color: $sticky-header-white-color;
-    box-shadow: 0 2px 10px $sticky-header-shadow-color;
+    background-color: $color-white;
+    box-shadow: $shadow-soft;
     padding: 8px 0;
     margin-top: 0;
 
-    .row {
-      align-items: center;
-    }
+    .row         { align-items: center; }
+    .brand-logo  { height: $header-brand-height-scrolled; }
+    .nav-link    { color: $color-black; }
+    .burger-svg-icon { color: $color-black; }
 
-    .brand-logo {
-      height: $sticky-header-brand-height-scrolled;
-    }
-
-    .nav-link {
-      color: $sticky-header-black-color;
-    }
-
-    .burger-svg-icon {
-      color: $sticky-header-black-color;
-    }
-
-    &.menu-open .burger-svg-icon {
-      color: $sticky-header-primary-color;
-    }
+    &.menu-open .burger-svg-icon { color: $color-primary; }
   }
 
   &.menu-open {
-    .brand-logo {
-      height: $sticky-header-brand-height-menu-open;
-    }
-
+    .brand-logo { height: $header-brand-height-menu-open; }
     .burger-svg-icon {
-      color: $sticky-header-white-color;
-      filter: drop-shadow(0px 0px 2px rgba(0, 0, 0, 0.5));
+      color: $color-white;
+      filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.5));
     }
   }
 }
 
-/* Collapsible Menu */
 .collapsible-menu {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 0;
-  background-color: $sticky-header-menu-bg-color;
+  background-color: $shadow-menu-bg;
   overflow: hidden;
-  transition: height $sticky-header-menu-transition-duration ease;
-  z-index: 1025;
+  transition: height $transition-menu;
+  z-index: $z-menu;
 
   &.open {
     height: 100vh;
@@ -124,9 +80,10 @@ header {
       transform: translateY(0);
     }
 
+    // Staggered entrance for menu items & columns.
     @for $i from 1 through 5 {
       .collapsible-nav-item:nth-child(#{$i}) {
-        transition-delay: $sticky-header-transition-duration * $i / 3;
+        transition-delay: calc(#{$duration-base} * #{$i} / 3);
       }
     }
 
@@ -135,7 +92,7 @@ header {
 
       @for $i from 1 through 4 {
         &:nth-child(#{$i}) {
-          animation-delay: $sticky-header-transition-duration * $i / 3;
+          animation-delay: calc(#{$duration-base} * #{$i} / 3);
         }
       }
     }
@@ -145,7 +102,7 @@ header {
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 10px 15px 20px; // Adjust base padding-top if needed for larger screens, though it's overridden in .open state
+    padding: 10px 15px 20px;
     display: flex;
     justify-content: center;
     height: 100%;
@@ -153,13 +110,13 @@ header {
   }
 
   .menu-column-title {
-    color: $sticky-header-primary-color;
+    color: $color-primary;
     font-size: 1.2rem;
     margin-bottom: 1.5rem;
     font-weight: 600;
     opacity: 0;
     transform: translateY(10px);
-    transition: opacity $sticky-header-transition-duration ease, transform $sticky-header-transition-duration ease;
+    transition: opacity $transition-base, transform $transition-base;
     transition-delay: 0.1s;
     text-align: center;
   }
@@ -175,48 +132,35 @@ header {
     margin: 20px 0;
     opacity: 0;
     transform: translateY(10px);
-    transition: opacity $sticky-header-transition-duration ease, transform $sticky-header-transition-duration ease;
+    transition: opacity $transition-base, transform $transition-base;
     text-align: center;
   }
 
   .collapsible-nav-link {
-    color: $sticky-header-white-color;
+    color: $color-white;
     font-size: 1.5rem;
     text-decoration: none;
-    transition: color $sticky-header-fast-transition-duration ease;
+    transition: color $transition-fast;
     display: inline-block;
 
-    &:hover {
-      color: $sticky-header-primary-color;
-      text-decoration: none;
-    }
+    &:hover { color: $color-primary; }
   }
 }
 
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
-/* Responsive styles */
-@media (max-width: $sticky-header-breakpoint-lg) {
+// -------- Responsive tweaks ------------------------------------------------
+@include media-down($bp-xl) {
   header {
-    .nav-item:not(:last-child) {
-      display: none;
-    }
+    .nav-item:not(:last-child) { display: none; }
 
     .row {
-      position: relative; // Keep relative positioning for absolute child
+      position: relative;
 
-      > .col-4:first-child {
-        display: none;
-      }
+      > .col-4:first-child { display: none; }
 
       .col-4.text-center.p-0 {
         width: 100%;
@@ -224,74 +168,48 @@ header {
       }
 
       .col-4.text-end {
-        // Always position absolutely on small screens
         position: absolute;
         right: 15px;
         width: auto;
         z-index: 1050;
         padding: 0;
-        transition: top $sticky-header-transition-duration ease, transform $sticky-header-transition-duration ease; // Add transition for smooth vertical movement
+        transition:
+          top $transition-base,
+          transform $transition-base;
 
         nav,
-        nav ul.nav {
-          display: flex;
-        }
+        nav ul.nav { display: flex; }
       }
     }
 
-    // Default state (NOT scrolled) on smaller screens
     &:not(.header-scrolled) {
-      .brand-logo {
-        height: $sticky-header-brand-height-initial-mobile;
-      }
-      .col-4.text-end {
-         // Align closer to the top edge when not scrolled
-         top: 5px; // Reduced from 15px. Adjust this value (e.g., 0) as needed.
-         transform: translateY(0);
-      }
+      .brand-logo { height: $header-brand-height-initial-mobile; }
+      .col-4.text-end { top: 5px; transform: translateY(0); }
     }
 
-    // Scrolled state on smaller screens
     &.header-scrolled {
-      .row {
-        // align-items: center; // Already applied in base .header-scrolled rule
-      }
       .col-4.text-end {
-         // Center vertically when scrolled
-         top: 50%;
-         transform: translateY(-50%);
+        top: 50%;
+        transform: translateY(-50%);
       }
-      .brand-logo {
-        height: $sticky-header-brand-height-scrolled;
-      }
+      .brand-logo { height: $header-brand-height-scrolled; }
     }
   }
 
   .collapsible-menu {
     &.open .menu-columns {
-      // Adjust calculation based on new mobile initial height
-      padding-top: calc(#{$sticky-header-brand-height-initial-mobile} + 10px);
+      padding-top: calc(#{$header-brand-height-initial-mobile} + 10px);
     }
 
-    .collapsible-nav-link {
-      font-size: 1.2rem;
-    }
-
-    .collapsible-nav-item {
-      margin: 15px 0;
-    }
+    .collapsible-nav-link { font-size: 1.2rem; }
+    .collapsible-nav-item { margin: 15px 0; }
   }
 }
 
-@media (max-width: $sticky-header-breakpoint-md) {
+@include media-down($bp-md) {
   header {
-    &.menu-open .brand-logo {
-      height: $sticky-header-brand-height-menu-open-mobile;
-    }
-
-    &.header-scrolled .brand-logo {
-      height: $sticky-header-brand-height-scrolled; // Explicitly set scrolled height for mobile if needed
-    }
+    &.menu-open .brand-logo { height: $header-brand-height-menu-open; }
+    &.header-scrolled .brand-logo { height: $header-brand-height-scrolled; }
   }
 
   .collapsible-menu {
@@ -299,7 +217,7 @@ header {
       flex-direction: column;
       align-items: center;
       justify-content: flex-start;
-      padding: calc(#{$sticky-header-brand-height-menu-open-mobile} + 10px) 30px 20px;
+      padding: calc(#{$header-brand-height-menu-open} + 10px) 30px 20px;
       text-align: center;
       overflow-y: auto;
     }

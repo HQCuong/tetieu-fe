@@ -1,18 +1,20 @@
 <template lang="pug">
 section.hero
-  // Render img tag directly
   img.hero-bg(
     v-if="img",
     :src="img",
-    alt="Hero background",
+    :alt="alt",
   )
 </template>
 
 <script setup lang="ts">
 interface Props {
-  // Background img
   img?: string;
+  alt?: string;
 }
 
-defineProps<Props>();
+withDefaults(defineProps<Props>(), {
+  img: '',
+  alt: 'Hero background',
+});
 </script>

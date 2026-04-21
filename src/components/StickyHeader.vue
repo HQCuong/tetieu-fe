@@ -1,7 +1,7 @@
 <template lang="pug">
 header.fixed-top(:class="headerClasses")
   .container-fluid
-    .row(:class="rowClasses")
+    .row
       .col-4
 
       .col-4.text-center.p-0
@@ -11,16 +11,16 @@ header.fixed-top(:class="headerClasses")
         )
           img.brand-logo(
             alt="Brand Logo",
-            :src="Brand",
-            :class="{ 'scrolled': isScrolled, 'menu-open': isMenuOpen }",
+            :src="brandLogo",
+            :class="{ scrolled: isScrolled, 'menu-open': isMenuOpen }",
           )
 
       .col-4.text-end
-        nav(aria-label="Main Navigation")
+        nav(aria-label="Main navigation")
           ul.nav
             li.nav-item(
-              v-for="(item, index) in NAVIGATION_ITEMS",
-              :key="index",
+              v-for="item in NAVIGATION_ITEMS",
+              :key="String(item.to)",
             )
               router-link.nav-link.font-heading(:to="item.to") {{ item.label }}
             li.nav-item.ms-3
@@ -33,10 +33,10 @@ header.fixed-top(:class="headerClasses")
                 @keydown.enter="toggleMenu",
                 @keydown.space.prevent="toggleMenu",
               )
-                BurgerMenu.burger-svg-icon(:class="{ 'open': isMenuOpen }")
+                BurgerMenu.burger-svg-icon(:class="{ open: isMenuOpen }")
 
 .collapsible-menu#collapsibleMenu(
-  :class="{ 'open': isMenuOpen }",
+  :class="{ open: isMenuOpen }",
   :aria-hidden="!isMenuOpen",
 )
   .container-fluid.h-100
@@ -61,63 +61,62 @@ header.fixed-top(:class="headerClasses")
 
 <script setup lang="ts">
 import {
-  ref,
   computed,
   onMounted,
   onUnmounted,
+  ref,
 } from 'vue';
 import {
-  NAVIGATION_ITEMS,
   BURGER_MENU_ITEMS,
-} from '@/configs';
-import Brand from '@/assets/imgs/brand.png';
-import BurgerMenu from '@/assets/burger-menu.svg?component';
+  NAVIGATION_ITEMS,
+} from '@/constants';
+import brandLogo from '@/assets/images/brand.png';
+import BurgerMenu from '@/assets/icons/burger-menu.svg?component';
 
-// State
+// Keep these in sync with the matching SCSS breakpoint / header sizing.
+const SCROLL_THRESHOLD = 50;
+const DESKTOP_BREAKPOINT = 1280;
+
 const isScrolled = ref(false);
 const isMenuOpen = ref(false);
 
-// Computed
 const headerClasses = computed(() => ({
   'header-scrolled': isScrolled.value,
   'menu-open': isMenuOpen.value,
 }));
 
-// Remove 'align-items-center' from here
-const rowClasses = computed(() => '');
-
-// Methods
-const setBodyOverflow = (hidden = false) => {
-  document.body.style.overflow = hidden ? 'hidden' : '';
+// Lock body scroll while the fullscreen menu is open.
+const setBodyScrollLocked = (locked: boolean) => {
+  document.body.style.overflow = locked ? 'hidden' : '';
 };
 
 const toggleMenu = () => {
   isMenuOpen.value = !isMenuOpen.value;
-  setBodyOverflow(isMenuOpen.value);
+  setBodyScrollLocked(isMenuOpen.value);
 };
 
 const closeMenu = () => {
   if (!isMenuOpen.value) { return; }
 
   isMenuOpen.value = false;
-  setBodyOverflow(false);
+  setBodyScrollLocked(false);
 };
 
 const handleScroll = () => {
-  const shouldBeScrolled = window.scrollY > 50;
+  const scrolled = window.scrollY > SCROLL_THRESHOLD;
 
-  if (isScrolled.value !== shouldBeScrolled) {
-    isScrolled.value = shouldBeScrolled;
+  if (isScrolled.value !== scrolled) {
+    isScrolled.value = scrolled;
   }
 };
 
+// Collapse the menu automatically when resizing back to desktop width.
 const handleResize = () => {
-  if (window.innerWidth > 1280 && isMenuOpen.value) {
+  if (window.innerWidth > DESKTOP_BREAKPOINT && isMenuOpen.value) {
     closeMenu();
   }
 };
 
-// Lifecycle
 onMounted(() => {
   window.addEventListener('scroll', handleScroll, { passive: true });
   window.addEventListener('resize', handleResize);
@@ -127,6 +126,6 @@ onMounted(() => {
 onUnmounted(() => {
   window.removeEventListener('scroll', handleScroll);
   window.removeEventListener('resize', handleResize);
-  setBodyOverflow(false);
+  setBodyScrollLocked(false);
 });
 </script>

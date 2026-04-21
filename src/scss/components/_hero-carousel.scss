@@ -1,0 +1,46 @@
+.hero-carousel-section {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+
+  // vue3-carousel slides use flex layout but their direct child wrapper can
+  // shrink to image natural size — force images to fill the slide width.
+  .carousel__slide { width: 100%; }
+  .hero-bg {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+}
+
+.hero-carousel-skeleton {
+  width: 100%;
+  height: 60vh;
+  background-color: #e0e0e0;
+  border-radius: 4px;
+  @include pulse;
+
+  @include media-down($bp-md) { height: 40vh; }
+}
+
+// vue3-carousel overrides — strip default button styling, lean on icon only.
+.carousel__prev,
+.carousel__next {
+  background-color: transparent;
+  border-radius: 0;
+  width: auto;
+  height: auto;
+  color: $color-white;
+  margin: 0 15px;
+
+  &:hover { background-color: transparent; color: #eee; }
+
+  .carousel__icon {
+    width: 30px;
+    height: 30px;
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.7));
+  }
+
+  @include media-down($bp-md) { display: none; }
+}
